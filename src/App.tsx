@@ -3,6 +3,7 @@ import { Login } from "./pages/Login";
 import { Box } from "@chakra-ui/react";
 import { Register } from "./pages/Register";
 import { Events } from "./pages/Event";
+import { Overview } from "./pages/Overview";
 
 export const App: React.FC = () => {
   return (
@@ -12,7 +13,8 @@ export const App: React.FC = () => {
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/event" element={<Events />} />
+          <Route path="/club/events" element={<Events />} />
+          <Route path="/club/overview" element={<Overview />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
