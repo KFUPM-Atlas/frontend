@@ -1,12 +1,12 @@
-import { Box, Container, Heading } from "@chakra-ui/react"
-import { MobileNavbar } from "../components/MobileNavbar"
-import { EventList } from "../components/EventList"
-import { COLORS } from "../core/constants"
+import { Box, Container, Heading, HStack } from "@chakra-ui/react";
+import { MobileNavbar } from "../components/MobileNavbar";
+import { EventList } from "../components/EventList";
+import { COLORS } from "../core/constants";
 export const BrowseEvents: React.FC = () => {
   return (
     <>
-      <Box h="100vh">
-        <Container>
+      <Box minH="100vh">
+        <Container maxW="container.lg">
           <Heading
             size="lg"
             fontWeight="bold"
@@ -21,5 +21,5 @@ export const BrowseEvents: React.FC = () => {
       </Box>
       <MobileNavbar />
     </>
-  )
-}
+  );
+};
