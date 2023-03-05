@@ -2,11 +2,14 @@ import { Box, Image, HStack, Stack, Text, Icon } from "@chakra-ui/react";
 import { COLORS } from "../core/constants";
 import { BiTimeFive } from "react-icons/bi";
 import { AiOutlineCalendar } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 interface EventBoxProps {}
 
 export const EventBox: React.FC<EventBoxProps> = ({}) => {
+  const navigate = useNavigate();
+
   return (
-    <Box pt={10} position="relative">
+    <Box pt={10} position="relative" onClick={() => navigate("/event/test")}>
       <Image
         src="./laptop.svg"
         w={"full"}
