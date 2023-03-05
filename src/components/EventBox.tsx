@@ -1,7 +1,7 @@
-import { Box, Image, HStack, Stack, Text, Icon } from "@chakra-ui/react"
-import { COLORS } from "../core/constants"
-import { BiTimeFive } from "react-icons/bi"
-import { AiOutlineCalendar } from "react-icons/ai"
+import { Box, Image, HStack, Stack, Text, Icon } from "@chakra-ui/react";
+import { COLORS } from "../core/constants";
+import { BiTimeFive } from "react-icons/bi";
+import { AiOutlineCalendar } from "react-icons/ai";
 interface EventBoxProps {}
 
 export const EventBox: React.FC<EventBoxProps> = ({}) => {
@@ -9,7 +9,7 @@ export const EventBox: React.FC<EventBoxProps> = ({}) => {
     <Box pt={10} position="relative">
       <Image
         src="./laptop.svg"
-        w={400}
+        w={"full"}
         h={200}
         objectFit="cover"
         borderRadius={10}
@@ -66,5 +66,5 @@ export const EventBox: React.FC<EventBoxProps> = ({}) => {
         </HStack>
       </Box>
     </Box>
-  )
-}
+  );
+};
