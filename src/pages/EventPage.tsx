@@ -10,6 +10,8 @@ import {
   TabPanels,
   Button,
   Text,
+  AvatarGroup,
+  Avatar,
 } from "@chakra-ui/react";
 import { Overview } from "../components/Overview";
 import { TabElement } from "../components/TabElement";
@@ -32,10 +34,20 @@ export const EventPage: React.FC = () => {
         w={{ base: "100%", lg: "50%" }}
       />
       <Box minH="40vh" w={{ base: "100%", lg: "50%" }} boxShadow="lg" p={8}>
-        <HStack>
+        <HStack justifyContent="space-between">
           <Heading size="lg" color={COLORS.PRIMARY}>
             React Hackathon
           </Heading>
+          <AvatarGroup size="sm" max={2}>
+            <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence" />
+            <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
+            <Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
+            <Avatar
+              name="Prosper Otemuyiwa"
+              src="https://bit.ly/prosper-baba"
+            />
+            <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
+          </AvatarGroup>
         </HStack>
         <Tabs pt={3}>
           <TabList borderColor="white">
