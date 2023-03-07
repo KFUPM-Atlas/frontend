@@ -7,7 +7,7 @@ interface EventListProps {}
 
 export const EventList: React.FC<EventListProps> = ({}) => {
   return (
-    <Box>
+    <Box pt={4}>
       <SearchBox />
       <TabsList />
       <SimpleGrid columns={2} spacing={10}>
