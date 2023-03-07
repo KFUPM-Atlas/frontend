@@ -4,6 +4,7 @@ import { BiHomeAlt } from "react-icons/bi";
 import { AiOutlineCalendar, AiOutlineUser } from "react-icons/ai";
 import { HiOutlineTicket } from "react-icons/hi";
 import { useMediaQuery } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 interface MobileNavbarProps {}
 
 export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
@@ -11,6 +12,7 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
     ssr: false,
     fallback: false,
   });
+  const navigate = useNavigate();
 
   return (
     <>
@@ -34,7 +36,13 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
               bgColor={"transparent"}
               _focus={{ bgColor: "transparent" }}
             >
-              <Icon as={BiHomeAlt} w={6} h={6} color="white" />
+              <Icon
+                as={BiHomeAlt}
+                w={6}
+                h={6}
+                color="white"
+                onClick={() => navigate("/events")}
+              />
             </Button>
             <Button
               px={10}
@@ -43,7 +51,13 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
               bgColor={"transparent"}
               _focus={{ bgColor: "transparent" }}
             >
-              <Icon as={AiOutlineCalendar} w={6} h={6} color="white" />
+              <Icon
+                as={AiOutlineCalendar}
+                w={6}
+                h={6}
+                color="white"
+                onClick={() => navigate("/explore")}
+              />
             </Button>
             <Button
               px={10}
