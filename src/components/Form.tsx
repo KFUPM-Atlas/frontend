@@ -8,36 +8,42 @@ import {
   Stack,
   Text,
   Link,
-} from "@chakra-ui/react"
-import { FcGoogle } from "react-icons/fc"
-import { useState } from "react"
-import { COLORS } from "../core/constants"
-import { OrDivider } from "./OrDivider"
-import { useNavigate } from "react-router"
+} from "@chakra-ui/react";
+import { FcGoogle } from "react-icons/fc";
+import { useState } from "react";
+import { COLORS } from "../core/constants";
+import { OrDivider } from "./OrDivider";
+import { useNavigate } from "react-router";
+import { useSignup } from "../hooks/useSignup";
+import { useLogin } from "../hooks/useLogin";
 
 interface FormProps {
-  type: "login" | "signup"
+  type: "login" | "signup";
 }
 
 export const Form: React.FC<FormProps> = ({ type }) => {
-  const navigate = useNavigate()
-  const [name, setName] = useState<string>("")
-  const [email, setEmail] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
+  const navigate = useNavigate();
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const { signup } = useSignup();
+  const { login } = useLogin();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      // if (type === "signup") {
-      //   await signup(name, email, password)
-      // }
-      // if (type === "login") {
-      //   await login(email, password)
-      // }
+      if (type === "signup") {
+        await signup(name, email, password);
+        navigate("/events");
+      }
+      if (type === "login") {
+        await login(email, password);
+        navigate("/events");
+      }
     } catch (e) {
-      // toast.error((e as Error).message)
+      console.log(e);
     }
-  }
+  };
   return (
     <Stack bgColor="white" p={7} borderRadius={10} spacing={3} w="full">
       <Heading size="lg" fontWeight="bold" mb={5}>
@@ -125,5 +131,5 @@ export const Form: React.FC<FormProps> = ({ type }) => {
       </Stack>
       )
     </Stack>
-  )
-}
+  );
+};
