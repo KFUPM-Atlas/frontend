@@ -5,6 +5,9 @@ import { AiOutlineCalendar, AiOutlineUser } from "react-icons/ai";
 import { HiOutlineTicket } from "react-icons/hi";
 import { useMediaQuery } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { MdOutlineLogout } from "react-icons/md";
+import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
 interface MobileNavbarProps {}
 
 export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
@@ -13,6 +16,9 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
     fallback: false,
   });
   const navigate = useNavigate();
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
+  console.log(user);
 
   return (
     <>
@@ -68,15 +74,23 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
             >
               <Icon as={HiOutlineTicket} w={6} h={6} color="white" />
             </Button>
-            <Button
-              px={10}
-              py={6}
-              borderRadius={7}
-              bgColor={"transparent"}
-              _focus={{ bgColor: "transparent" }}
-            >
-              <Icon as={AiOutlineUser} w={6} h={6} color="white" />
-            </Button>
+            {user && (
+              <Button
+                px={10}
+                py={6}
+                borderRadius={7}
+                bgColor={"transparent"}
+                _focus={{ bgColor: "transparent" }}
+              >
+                <Icon
+                  as={MdOutlineLogout}
+                  onClick={() => logout()}
+                  w={6}
+                  h={6}
+                  color="white"
+                />
+              </Button>
+            )}
           </HStack>
         </Box>
       )}
