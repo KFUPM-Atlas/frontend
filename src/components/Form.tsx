@@ -105,19 +105,6 @@ export const Form: React.FC<FormProps> = ({ type }) => {
         </SimpleGrid>
       </form>
       <Stack>
-        <OrDivider />
-        <Button
-          bgColor="white"
-          color="gray.700"
-          size="md"
-          w="full"
-          fontWeight="medium"
-          border={"1px"}
-          borderColor="gray.300"
-          leftIcon={<FcGoogle />}
-        >
-          {"Continue With Google"}
-        </Button>
         <Text textAlign="center" color={COLORS.TEXT_LIGHT} pt={2}>
           New to Atlas?{" "}
           <Link
