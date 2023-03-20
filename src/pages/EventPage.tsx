@@ -23,9 +23,11 @@ import { COLORS } from "../core/constants";
 import { BsArrowRight } from "react-icons/bs";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export const EventPage: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useAuthContext();
 
   return (
     <>
@@ -71,19 +73,35 @@ export const EventPage: React.FC = () => {
               </TabPanel>
             </TabPanels>
           </Tabs>
-          <Button
-            w="full"
-            bgGradient="linear(to-l, gray.600, gray.900)"
-            color="white"
-            p={8}
-            onClick={() => toast.success("Registered Event")}
-            _focus={{ bgGradient: "linear(to-l, gray.600, gray.900)" }}
-          >
-            <HStack justifyContent="space-between">
-              <Text>Attend</Text>
-              <BsArrowRight />
-            </HStack>
-          </Button>
+          {user && (
+            <Button
+              w="full"
+              bgGradient="linear(to-l, gray.600, gray.900)"
+              color="white"
+              p={8}
+              onClick={() => toast.success("Registered Event")}
+              _focus={{ bgGradient: "linear(to-l, gray.600, gray.900)" }}
+            >
+              <HStack justifyContent="space-between">
+                <Text>Attend</Text>
+                <BsArrowRight />
+              </HStack>
+            </Button>
+          )}
+          {!user && (
+            <Button
+              w="full"
+              bgGradient="linear(to-l, gray.600, gray.900)"
+              color="white"
+              p={8}
+              onClick={() => navigate("/login")}
+              _focus={{ bgGradient: "linear(to-l, gray.600, gray.900)" }}
+            >
+              <HStack justifyContent="space-between">
+                <Text>Login to Attend</Text>
+              </HStack>
+            </Button>
+          )}
         </Box>
       </Stack>
     </>
