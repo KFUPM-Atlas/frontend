@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { auth } from "../core/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "./useAuthContext";
 import toast from "react-hot-toast";
 
 export const useLogin = () => {

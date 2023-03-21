@@ -1,6 +1,6 @@
 import { auth } from "../core/firebase";
 import { signOut } from "@firebase/auth";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "./useAuthContext";
 import { toast } from "react-hot-toast";
 export const useLogout = () => {
   const { dispatch } = useAuthContext();
