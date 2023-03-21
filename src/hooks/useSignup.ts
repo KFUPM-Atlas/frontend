@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { auth, db } from "../core/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "./useAuthContext";
 import toast from "react-hot-toast";
 import { serverTimestamp, doc } from "@firebase/firestore";
 import { setDoc } from "firebase/firestore";
