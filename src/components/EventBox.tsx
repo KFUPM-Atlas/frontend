@@ -3,13 +3,21 @@ import { COLORS } from "../core/constants";
 import { BiTimeFive } from "react-icons/bi";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-interface EventBoxProps {}
+interface EventBoxProps {
+  event: any;
+}
 
-export const EventBox: React.FC<EventBoxProps> = ({}) => {
+export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
   const navigate = useNavigate();
+  const startDate = new Date(event?.startDate * 1000);
+  const endDate = new Date(event?.endDate * 1000);
 
   return (
-    <Box pt={10} position="relative" onClick={() => navigate("/event/test")}>
+    <Box
+      pt={10}
+      position="relative"
+      onClick={() => navigate(`/event/${event?.slug}`)}
+    >
       <Image
         src="./laptop.svg"
         w={"full"}
@@ -35,7 +43,7 @@ export const EventBox: React.FC<EventBoxProps> = ({}) => {
           <Stack py={3}>
             <HStack justifyContent="space-between">
               <Text fontWeight="medium" fontSize={13}>
-                Cyberthon UCI CTF 2023
+                {event?.eventName}
               </Text>
             </HStack>
             <HStack>
@@ -48,7 +56,7 @@ export const EventBox: React.FC<EventBoxProps> = ({}) => {
                 boxShadow="md"
               />
               <Text fontWeight="normal" fontSize={8}>
-                Google Developers Student Club
+                {event?.club}
               </Text>
             </HStack>
           </Stack>
@@ -56,13 +64,22 @@ export const EventBox: React.FC<EventBoxProps> = ({}) => {
             <HStack color="gray.400">
               <Icon as={BiTimeFive} w={3} h={3} />
               <Text fontWeight="medium" fontSize={10}>
-                7pm-8pm
+                {startDate?.toLocaleString("en-US", {
+                  hour: "numeric",
+                  hour12: true,
+                })}
+                -
+                {endDate?.toLocaleString("en-US", {
+                  hour: "numeric",
+                  hour12: true,
+                })}
               </Text>
             </HStack>
             <HStack color="gray.400">
               <Icon as={AiOutlineCalendar} w={3} h={3} />
               <Text fontWeight="medium" fontSize={10}>
-                Feb 12 2023
+                {startDate?.getDate()}{" "}
+                {startDate?.toLocaleString("default", { month: "short" })}
               </Text>
             </HStack>
           </Stack>
