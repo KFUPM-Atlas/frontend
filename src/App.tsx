@@ -8,6 +8,7 @@ import { Events } from "./pages/Event";
 import { Explore } from "./pages/Explore";
 import { ClubPage } from "./pages/ClubPage";
 import {SupervisorRequests} from "./pages/SupervisorRequests";
+import {SupervisorClubs} from "./pages/SupervisorClubs";
 
 export const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ export const App: React.FC = () => {
         <Route path="/explore" element={<Explore />} />
         <Route path="*" element={<Navigate to="/login" />} />
         <Route path="/supervisor/requests" element={<SupervisorRequests />}/>
+        <Route path="/supervisor/clubs" element={<SupervisorClubs />}/>
       </Routes>
     </BrowserRouter>
   );

@@ -21,11 +21,6 @@ import {mapRequestStatusToColor} from "../utils/map_request_status_to_color";
 
 export const SupervisorRequests: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const {
-        isOpen: isOpenModal,
-        onOpen: onOpenModal,
-        onClose: onCloseModal,
-    } = useDisclosure();
 
     return (
         <div dir="rtl">
