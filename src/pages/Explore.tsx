@@ -12,7 +12,7 @@ export const Explore: React.FC = () => {
             fontWeight="bold"
             fontSize={29}
             color={COLORS.PRIMARY}
-            py={8}
+            pt={2}
           >
             Explore
           </Heading>
