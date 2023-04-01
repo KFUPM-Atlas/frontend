@@ -10,10 +10,10 @@ interface EventListProps {}
 export const ExploreEvents: React.FC<EventListProps> = ({}) => {
   return (
     <Box>
-      <SearchBox />
-      <CategoryPick
+      {/* <SearchBox /> */}
+      {/* <CategoryPick
         categories={["Meeting", "Tech", "Gaming", "Meetup", "Random"]}
-      />
+      /> */}
       <ExploreTabs />
     </Box>
   );

@@ -7,6 +7,7 @@ import { BrowseEvents } from "./pages/BrowseEvents";
 import { Events } from "./pages/Event";
 import { Explore } from "./pages/Explore";
 import { ClubPage } from "./pages/ClubPage";
+import { Tickets } from "./pages/Tickets";
 
 export const App: React.FC = () => {
   return (
@@ -18,8 +19,9 @@ export const App: React.FC = () => {
         <Route path="/event/:slug" element={<EventPage />} />
         <Route path="/events" element={<BrowseEvents />} />
         <Route path="/club-dashboard/event" element={<Events />} />
-        <Route path="/club/:slug" element={<ClubPage />} />
+        <Route path="/club/:id" element={<ClubPage />} />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/tickets" element={<Tickets />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>

@@ -8,21 +8,19 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { COLORS } from "../core/constants";
-import { BiTimeFive } from "react-icons/bi";
-import { AiOutlineCalendar } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { CgScreen } from "react-icons/cg";
-import { MdDateRange } from "react-icons/md";
 
-interface EventBoxProps {}
+interface ClubBoxProps {
+  club: any;
+}
 
-export const ClubOverviewBox: React.FC<EventBoxProps> = ({}) => {
+export const ClubOverviewBox: React.FC<ClubBoxProps> = ({ club }) => {
   const navigate = useNavigate();
 
   return (
-    <Box pt={3} onClick={() => navigate("/club/test")}>
+    <Box pt={3} onClick={() => navigate(`/club/${club?.clubId}`)}>
       <Box boxShadow="lg" bgColor="white" borderRadius={10}>
-        <HStack>
+        <HStack justifyContent="space-between">
           <Box p={5}>
             <Image
               src="/gdsc.jpeg"
@@ -35,13 +33,13 @@ export const ClubOverviewBox: React.FC<EventBoxProps> = ({}) => {
           </Box>
           <Stack spacing={0} pr={10}>
             <Text color={COLORS.PRIMARY} fontWeight="bold">
-              GDSC
+              {club?.name}
             </Text>
             <Text color={COLORS.TEXT_LIGHT} fontSize={10}>
-              Some Description
+              {club?.description}
             </Text>
           </Stack>
-          <Stack justifyContent="center" spacing={2}>
+          <Stack justifyContent="center" spacing={2} pr={5}>
             <Button
               fontSize={10}
               size="sm"

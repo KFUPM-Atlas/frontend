@@ -8,14 +8,12 @@ interface EventListProps {}
 
 export const EventList: React.FC<EventListProps> = ({}) => {
   const { events } = useFetchEvents();
-  console.log(events);
   return (
-    <Box pt={4}>
-      <SearchBox />
-      <TabsList />
+    <Box pt={0}>
+      {/* <TabsList /> */}
       <SimpleGrid columns={2} spacing={{ base: 0, md: 10 }}>
-        {events?.map((event) => (
-          <GridItem colSpan={{ base: 2, lg: 1 }}>
+        {events?.map((event, index) => (
+          <GridItem colSpan={{ base: 2, lg: 1 }} key={index}>
             <EventBox event={event} />
           </GridItem>
         ))}
