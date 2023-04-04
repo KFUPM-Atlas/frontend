@@ -48,11 +48,6 @@ export const SupervisorDeptPage: React.FC = () => {
                         </Card>
                         <Card mt={2}>
                             <CardBody p={0}>
-                                <Box style={{paddingTop: "25px", paddingBottom: "25px", textAlign: "center",
-                                    backgroundColor: COLORS.TEXT_LIGHT, borderTopRightRadius: "var(--card-radius)",
-                                borderTopLeftRadius: "var(--card-radius)"}}>
-                                    "Activity page banner"
-                                </Box>
                                 <Box mt={5} mr={8} ml={8}>
                                     <Text>وصف القسم</Text>
                                     <Input mt={2} height={100}></Input>

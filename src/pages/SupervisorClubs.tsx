@@ -12,11 +12,8 @@ import {
     useDisclosure
 } from "@chakra-ui/react";
 import {SupervisorSidebar} from "../components/SupervisorSidebar";
-import {randomArr} from "../utils/random_arr";
-import {mapRequestStatusToColor} from "../utils/map_request_status_to_color";
-import {SupervisorRequestStatusAR} from "../enums/supervisor_request_status_ar";
-import {ScrollRestoration} from "react-router-dom";
 import {COLORS} from "../core/constants";
+import {CreateClub} from "../components/create_club/CreateClub";
 
 export const SupervisorClubs: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,6 +31,13 @@ export const SupervisorClubs: React.FC = () => {
         {id: 11, name: "نادي وعينا"},
 
     ];
+
+    const {
+        isOpen: isOpenModal,
+        onOpen: onOpenModal,
+        onClose: onCloseModal,
+    } = useDisclosure();
+
     return (
         <div dir="rtl">
         <Box minH="100vh">
@@ -47,7 +51,7 @@ export const SupervisorClubs: React.FC = () => {
     my={"16"}
     >
     <Flex justifyContent={"space-between"}>
-        <Heading>النوادي</Heading>
+        <Heading>الأندية</Heading>
         </Flex>
         <Tag justifyContent="center" size={'md'} key={'md'} variant='outline' color="black" mx="auto" width={"100px"} height={7} mt={5}>
             {clubsData.length + " نادي"}
@@ -79,9 +83,14 @@ export const SupervisorClubs: React.FC = () => {
                 </Tbody>
             </Table>
         </TableContainer>
-        <Button bg={COLORS.PRIMARY} color="white" width={"20%"} mt={8}>
+        <Button bg={COLORS.PRIMARY} color="white" width={"20%"} mt={8} onClick={onOpenModal}>
             إضافة نادي
         </Button>
+        <CreateClub
+            isOpen={isOpenModal}
+            onClose={onCloseModal}
+            onOpen={onOpenModal}
+        />
     </Box>
     </Box>
     </Box>
