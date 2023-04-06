@@ -59,7 +59,7 @@ export const EventDetails: React.FC<EventDetailsProps> = ({}) => {
             posted event.
           </Text>
         </Text>
-      </Stack>{" "}
+      </Stack>
     </Stack>
   );
 };

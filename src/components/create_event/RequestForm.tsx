@@ -15,27 +15,23 @@ import {
 import { useState } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import useCreateEventStore from "../../stores/useCreateEventStore";
-interface RequestsProps {}
-export const Requests: React.FC<RequestsProps> = ({}) => {
+interface RequestsProps {
+  msg: string;
+}
+export const RequestForm: React.FC<RequestsProps> = ({ msg }) => {
   const [title, setTitle] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
   const [reason, setReason] = useState<string>("");
   const budget = useCreateEventStore((state) => state.budget);
   const addBudget = useCreateEventStore((state) => state.addBudget);
   const removeBudget = useCreateEventStore((state) => state.removeBudget);
-  console.log("Budget: ", budget);
+
   return (
     <Stack>
       <Text fontSize={"xl"} fontWeight={"bold"}>
         Add your requests
       </Text>
-      <Text>
-        This will be displayed on you
-        <Text display={"inline"} fontWeight={"bold"}>
-          {" "}
-          posted event.
-        </Text>
-      </Text>
+      <Text>{msg}</Text>
       <form
         onSubmit={(e) => {
           e.preventDefault();

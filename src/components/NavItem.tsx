@@ -1,28 +1,30 @@
-import { Flex, Icon, Link } from "@chakra-ui/react";
-import { IconType } from "react-icons";
+import { Box, Flex, Icon, Link } from "@chakra-ui/react";
+import { LinkItemProps } from "../utils/link_items";
+import { Link as RouteLink } from "react-router-dom";
+interface NavItemProps extends LinkItemProps {}
 
-interface NavItemProps {
-  icon: IconType;
-  text: string;
-}
-export const NavItem: React.FC<NavItemProps> = ({ icon, text }) => {
+export const NavItem: React.FC<NavItemProps> = ({ icon, name, isOn, link }) => {
+  console.log("Link: ", {
+    icon,
+    name,
+    isOn,
+    link,
+  });
   return (
-    <Link
-      href="#"
-      style={{ textDecoration: "none" }}
-      _focus={{ boxShadow: "none" }}
-    >
-      <Flex
-        align="center"
-        p="4"
-        mx="4"
-        borderRadius="lg"
-        role="group"
-        cursor="pointer"
-      >
-        {icon && <Icon mr="4" fontSize="16" as={icon} />}
-        {text}
-      </Flex>
-    </Link>
+    <RouteLink to={link!}>
+      <Box style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
+        <Flex
+          align="center"
+          p="4"
+          mx="4"
+          borderRadius="lg"
+          role="group"
+          cursor="pointer"
+        >
+          {icon && <Icon mr="4" fontSize="16" as={icon} />}
+          {name}
+        </Flex>
+      </Box>
+    </RouteLink>
   );
 };
