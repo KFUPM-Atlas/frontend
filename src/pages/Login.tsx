@@ -1,9 +1,12 @@
-import { Box, Center, HStack, Image, Container, Stack } from "@chakra-ui/react"
-import { Form } from "../components/Form"
-import { COLORS } from "../core/constants"
-import { useMediaQuery } from "@chakra-ui/react"
+import { Box, Center, HStack, Image, Container, Stack } from "@chakra-ui/react";
+import { Form } from "../components/Form";
+import { COLORS } from "../core/constants";
+import { useMediaQuery } from "@chakra-ui/react";
 export const Login: React.FC = () => {
-  const [isLargerThan700] = useMediaQuery("(min-width: 700px)")
+  const [isLargerThan700] = useMediaQuery("(min-width: 700px)", {
+    ssr: false,
+    fallback: false,
+  });
 
   return (
     <HStack spacing={0}>
@@ -21,5 +24,5 @@ export const Login: React.FC = () => {
         </Box>
       )}
     </HStack>
-  )
-}
+  );
+};
