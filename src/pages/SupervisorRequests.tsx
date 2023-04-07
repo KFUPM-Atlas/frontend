@@ -10,12 +10,14 @@ import {
     Tr,
     Th,
     Tbody,
-    Td, HStack,
+    Td, HStack, Icon,
 } from "@chakra-ui/react";
 import {SupervisorSidebar} from "../components/SupervisorSidebar";
 import {randomArr} from "../utils/random_arr";
 import {SupervisorRequestStatusAR} from "../enums/supervisor_request_status_ar";
 import {mapRequestStatusToColor} from "../utils/map_request_status_to_color";
+import {FiFile, FiLink, FiImage} from "react-icons/fi";
+import React from "react";
 
 
 
@@ -93,7 +95,22 @@ export const SupervisorRequests: React.FC = () => {
                                                 <Td>{i + 1}</Td>
                                                 <Td>{type}</Td>
                                                 <Td>{club}</Td>
-                                                <Td style={{textDecoration: "underline"}}>تنزيل الملف</Td>
+                                                <Td style={{ textDecoration: "underline" }}>
+                                                    {type !== "فعالية" ? (
+                                                        <Button bgColor={"white"} height={8} width={8}>
+                                                            <Icon as={FiFile}/>
+                                                        </Button>
+                                                    ) : (
+                                                        <>
+                                                            <Button bgColor={"white"} height={8} width={8}>
+                                                                <Icon as={FiImage}/>
+                                                            </Button>
+                                                            <Button bgColor={"white"} height={8} width={8}>
+                                                                <Icon as={FiLink}/>
+                                                            </Button>
+                                                        </>
+                                                    )}
+                                                </Td>
                                                 <Td>{new Date().toLocaleString()}</Td>
                                                 <Td color={mapRequestStatusToColor(status as SupervisorRequestStatusAR)}>
                                                     {status}
