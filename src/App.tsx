@@ -7,7 +7,6 @@ import { BrowseEvents } from "./pages/BrowseEvents";
 import { Events } from "./pages/Event";
 import { Explore } from "./pages/Explore";
 import { ClubPage } from "./pages/ClubPage";
-import {SupervisorRequests} from "./pages/SupervisorRequests";
 
 export const App: React.FC = () => {
   return (
@@ -22,7 +21,6 @@ export const App: React.FC = () => {
         <Route path="/club/:slug" element={<ClubPage />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="*" element={<Navigate to="/login" />} />
-        <Route path="/supervisor/requests" element={<SupervisorRequests />}/>
       </Routes>
     </BrowserRouter>
   );
