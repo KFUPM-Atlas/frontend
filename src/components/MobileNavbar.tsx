@@ -18,7 +18,6 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
   const navigate = useNavigate();
   const { logout } = useLogout();
   const { user } = useAuthContext();
-  console.log(user);
 
   return (
     <>
@@ -71,6 +70,7 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
               borderRadius={7}
               bgColor={"transparent"}
               _focus={{ bgColor: "transparent" }}
+              onClick={() => navigate("/tickets")}
             >
               <Icon as={HiOutlineTicket} w={6} h={6} color="white" />
             </Button>

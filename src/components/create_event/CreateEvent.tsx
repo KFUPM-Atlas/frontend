@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import { EventDetails } from "./EventDetails";
 import { Finish } from "./Finish";
 import { Lines } from "./Lines";
-import { Requests } from "./Requests";
+import { RequestForm } from "./RequestForm";
 import { RoomReservation } from "./RoomReservation";
 
 interface CreateEventProps {
@@ -36,27 +36,33 @@ export const CreateEvent: React.FC<CreateEventProps> = ({
         <ModalBody>
           <Lines />
           {step === 1 && <EventDetails />}
-          {step === 2 && <Requests />}
+          {step === 2 && (
+            <RequestForm msg="This will be displayed on you posted event." />
+          )}
           {step === 3 && <RoomReservation />}
           {step === 4 && <Finish />}
         </ModalBody>
         <ModalFooter>
-          <Button
-            bg={"black"}
-            color={"white"}
-            mx={"5"}
-            onClick={() => setStep(step > 1 ? step - 1 : 1)}
-          >
-            Back
-          </Button>
-
-          <Button
-            bg={"black"}
-            color={"white"}
-            onClick={() => setStep(step + 1)}
-          >
-            Next
-          </Button>
+          {step != 4 && (
+            <>
+              {" "}
+              <Button
+                bg={"black"}
+                color={"white"}
+                mx={"5"}
+                onClick={() => setStep(step > 1 ? step - 1 : 1)}
+              >
+                Back
+              </Button>
+              <Button
+                bg={"black"}
+                color={"white"}
+                onClick={() => setStep(step + 1)}
+              >
+                Next
+              </Button>
+            </>
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -1,19 +1,15 @@
 import { IconType } from "react-icons";
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-} from "react-icons/fi";
+import { FiCompass, FiHome, FiStar, FiTrendingUp } from "react-icons/fi";
 
 export interface LinkItemProps {
   name: string;
   icon: IconType;
+  link?: string;
+  isOn?: boolean;
 }
 export const linkItems: Array<LinkItemProps> = [
-  { name: "Overview", icon: FiHome },
-  { name: "Events", icon: FiTrendingUp },
-  { name: "Requests", icon: FiCompass },
-  { name: "Club Profile", icon: FiStar },
+  { name: "Overview", icon: FiHome, link: "/club/overview" },
+  { name: "Events", icon: FiTrendingUp, link: "/club/events" },
+  { name: "Requests", icon: FiCompass, link: "/club/requests" },
+  { name: "Club Profile", icon: FiStar, link: "/club/profile" },
 ];

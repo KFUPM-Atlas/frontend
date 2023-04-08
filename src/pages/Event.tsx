@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { CreateEvent } from "../components/create_event/CreateEvent";
 import { Sidebar } from "../components/Sidebar";
+import { TableData } from "../components/TableData";
 import { EventStatus } from "../enums/event_status";
 import { mapEventStatusToColor } from "../utils/map_event_status_to_color";
 import { randomArr } from "../utils/random_arr";
@@ -48,49 +49,7 @@ export const Events: React.FC = () => {
               onOpen={onOpenModal}
             />
           </Flex>
-          <TableContainer mt={10}>
-            <Table variant="simple">
-              <Thead>
-                <Tr>
-                  <Th>Sender</Th>
-                  <Th>Send Date</Th>
-                  <Th>Type</Th>
-                  <Th>Title</Th>
-                  <Th>Status</Th>
-                  <Th>Action</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {Array(10)
-                  .fill(0)
-                  .map((_, i) => {
-                    const status = randomArr([
-                      "pending",
-                      "approved",
-                      "rejected",
-                    ]);
-                    return (
-                      <Tr>
-                        <Td>Salah</Td>
-                        <Td>{new Date().toLocaleString()}</Td>
-                        <Td>Type-1</Td>
-                        <Td>Introduction to Python</Td>
-                        <Td
-                          color={mapEventStatusToColor(status as EventStatus)}
-                        >
-                          {status}
-                        </Td>
-                        <Td>
-                          <Button bg={"black"} color={"white"}>
-                            View
-                          </Button>
-                        </Td>
-                      </Tr>
-                    );
-                  })}
-              </Tbody>
-            </Table>
-          </TableContainer>
+          <TableData />
         </Box>
       </Box>
     </Box>

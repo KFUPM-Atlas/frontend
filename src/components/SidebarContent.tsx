@@ -22,10 +22,15 @@ export const SidebarContent: React.FC<NavItemProps> = ({ onClose }) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {linkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} text={link.name} />
+        <NavItem
+          key={link.name}
+          icon={link.icon}
+          name={link.name}
+          link={link.link}
+        />
       ))}
       <Spacer h={"lg"} />
-      <NavItem key={324} icon={BiLogOut} text={"Logout"} />
+      <NavItem key={324} icon={BiLogOut} name={"Logout"} />
     </Box>
   );
 };

@@ -7,14 +7,17 @@ import {
   SimpleGrid,
   GridItem,
 } from "@chakra-ui/react";
-import { COLORS } from "../core/constants";
 import { TabElement } from "./TabElement";
 import { EventOverviewBox } from "../components/EventOverviewBox";
 import { ClubOverviewBox } from "../components/ClubOverviewBox";
+import { useFetchEvents } from "../hooks/useFetchEvents";
+import { useFetchClubs } from "../hooks/useFetchClubs";
 
 interface TabsProps {}
 
 export const ExploreTabs: React.FC<TabsProps> = ({}) => {
+  const { events } = useFetchEvents();
+  const { clubs } = useFetchClubs();
   return (
     <Tabs pt={5}>
       <TabList borderColor="white">
@@ -24,34 +27,22 @@ export const ExploreTabs: React.FC<TabsProps> = ({}) => {
       <TabPanels>
         <TabPanel p={0}>
           <SimpleGrid columns={2} spacing={0}>
-            <GridItem colSpan={{ base: 2, lg: 1 }}>
-              <EventOverviewBox />
-            </GridItem>
-            <GridItem colSpan={{ base: 2, lg: 1 }}>
-              <EventOverviewBox />
-            </GridItem>
-            <GridItem colSpan={{ base: 2, lg: 1 }}>
-              <EventOverviewBox />
-            </GridItem>
-            <GridItem colSpan={{ base: 2, lg: 1 }}>
-              <EventOverviewBox />
-            </GridItem>
+            {events &&
+              events?.map((event, index) => (
+                <GridItem colSpan={{ base: 2, lg: 1 }} key={index}>
+                  <EventOverviewBox event={event} />
+                </GridItem>
+              ))}
           </SimpleGrid>
         </TabPanel>
         <TabPanel p={0}>
           <SimpleGrid columns={2} spacing={0}>
-            <GridItem colSpan={{ base: 2, lg: 1 }}>
-              <ClubOverviewBox />
-            </GridItem>
-            <GridItem colSpan={{ base: 2, lg: 1 }}>
-              <ClubOverviewBox />
-            </GridItem>
-            <GridItem colSpan={{ base: 2, lg: 1 }}>
-              <ClubOverviewBox />
-            </GridItem>
-            <GridItem colSpan={{ base: 2, lg: 1 }}>
-              <ClubOverviewBox />
-            </GridItem>
+            {clubs &&
+              clubs?.map((club, index) => (
+                <GridItem colSpan={{ base: 2, lg: 1 }} key={index}>
+                  <ClubOverviewBox club={club} />
+                </GridItem>
+              ))}
           </SimpleGrid>
         </TabPanel>
       </TabPanels>

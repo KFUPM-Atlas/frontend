@@ -1,6 +1,6 @@
-import { Tabs, TabList, Tab } from "@chakra-ui/react"
-import { COLORS } from "../core/constants"
-import { TabElement } from "./TabElement"
+import { Tabs, TabList, Tab } from "@chakra-ui/react";
+import { COLORS } from "../core/constants";
+import { TabElement } from "./TabElement";
 interface TabsProps {}
 
 export const TabsList: React.FC<TabsProps> = ({}) => {
@@ -12,5 +12,5 @@ export const TabsList: React.FC<TabsProps> = ({}) => {
         <TabElement title="Latest" />
       </TabList>
     </Tabs>
-  )
-}
+  );
+};

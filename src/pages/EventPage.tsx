@@ -25,17 +25,18 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useFetchEvent } from "../hooks/useFetchEvent";
+import { useFirestoreRegistrations } from "../hooks/useFirestoreRegistrations";
+import { useEffect } from "react";
+import { useCheckRegistration } from "../hooks/useCheckRegistration";
 
 export const EventPage: React.FC = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const { user } = useAuthContext();
   const { event } = useFetchEvent(slug);
-
-  if (event) {
-    console.log(event);
-  }
-
+  const { createRegistration } = useFirestoreRegistrations();
+  const { hasRegistration, loading } = useCheckRegistration(slug, user?.uid);
+  console.log(hasRegistration);
   return (
     <>
       {event && (
@@ -91,19 +92,36 @@ export const EventPage: React.FC = () => {
               </TabPanels>
             </Tabs>
             {user && (
-              <Button
-                w="full"
-                bgGradient="linear(to-l, gray.600, gray.900)"
-                color="white"
-                p={8}
-                onClick={() => toast.success("Registered Event")}
-                _focus={{ bgGradient: "linear(to-l, gray.600, gray.900)" }}
-              >
-                <HStack justifyContent="space-between">
-                  <Text>Attend</Text>
-                  <BsArrowRight />
-                </HStack>
-              </Button>
+              <>
+                {!loading && !hasRegistration && (
+                  <Button
+                    w="full"
+                    bgGradient="linear(to-l, gray.600, gray.900)"
+                    color="white"
+                    p={8}
+                    onClick={() => createRegistration(user.uid, event.slug)}
+                    _focus={{ bgGradient: "linear(to-l, gray.600, gray.900)" }}
+                  >
+                    <HStack justifyContent="space-between">
+                      <Text>Attend</Text>
+                      <BsArrowRight />
+                    </HStack>
+                  </Button>
+                )}
+                {!loading && hasRegistration && (
+                  <Button
+                    w="full"
+                    bgGradient="linear(to-l, gray.600, gray.900)"
+                    color="white"
+                    p={8}
+                    _focus={{ bgGradient: "linear(to-l, gray.600, gray.900)" }}
+                  >
+                    <HStack justifyContent="space-between">
+                      <Text>Registered</Text>
+                    </HStack>
+                  </Button>
+                )}
+              </>
             )}
             {!user && (
               <Button

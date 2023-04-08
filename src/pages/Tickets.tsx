@@ -2,7 +2,17 @@ import { Box, Container, Heading, HStack } from "@chakra-ui/react";
 import { MobileNavbar } from "../components/MobileNavbar";
 import { ExploreEvents } from "../components/ExploreEvents";
 import { COLORS } from "../core/constants";
-export const Explore: React.FC = () => {
+import { TicketEvents } from "../components/TicketEvents";
+import { useFetchRegistrations } from "../hooks/useFetchRegistrations";
+import { returnSlugs } from "../utils/return_eventIds";
+import { useAuthContext } from "../hooks/useAuthContext";
+
+export const Tickets: React.FC = () => {
+  const { user } = useAuthContext();
+  const { registrations } = useFetchRegistrations(user?.uid);
+  console.log(registrations);
+  const eventIds = returnSlugs(registrations);
+
   return (
     <>
       <Box minH="100vh">
@@ -14,9 +24,9 @@ export const Explore: React.FC = () => {
             color={COLORS.PRIMARY}
             pt={2}
           >
-            Explore
+            My Tickets
           </Heading>
-          <ExploreEvents />
+          {registrations && <TicketEvents eventIds={eventIds} />}
         </Container>
       </Box>
       <MobileNavbar />
