@@ -1,32 +1,38 @@
 import {
   Box,
-  Button,
+  Center,
   Flex,
   Heading,
+  Image,
   Stack,
   Table,
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
-  Image,
   useDisclosure,
-  HStack,
-  Text,
-  Center,
 } from "@chakra-ui/react";
+import { BsCalendar, BsThreeDots } from "react-icons/bs";
 import { IoPeopleOutline, IoSend } from "react-icons/io5";
+import { useParams } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
 import { Stat } from "../components/Stat";
 import { EventStatus } from "../enums/event_status";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useCollection } from "../hooks/useCollection";
 import { mapEventStatusToColor } from "../utils/map_event_status_to_color";
 import { randomArr } from "../utils/random_arr";
-import { BsCalendar } from "react-icons/bs";
-import { BsThreeDots } from "react-icons/bs";
 export const Overview: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { user } = useAuthContext();
+  const { id } = useParams();
+  const args = ["clubId", "==", id];
+  const { documents: followers } = useCollection("followers", args);
+  const { documents: events } = useCollection("events", args);
+  const { documents: requests } = useCollection("requests", args);
 
   return (
     <Box minH="100vh">
@@ -68,21 +74,21 @@ export const Overview: React.FC = () => {
           >
             <Stat
               title="Total Followers"
-              total={1023}
+              total={followers && followers.length}
               icon={<IoPeopleOutline size={20} />}
               bg={"black"}
               color={"white"}
             />
             <Stat
-              title="Total Followers"
-              total={1023}
+              title="Total Events"
+              total={events && events.length}
               icon={<BsCalendar size={20} />}
               bg={"#CED1F4"}
               color={"black"}
             />
             <Stat
-              title="Total Followers"
-              total={1023}
+              title="Total Request"
+              total={requests && requests.length}
               icon={<IoSend size={20} />}
               bg={"#DABAC5"}
               color={"black"}
@@ -113,7 +119,7 @@ export const Overview: React.FC = () => {
                         "rejected",
                       ]);
                       return (
-                        <Tr>
+                        <Tr key={i}>
                           <Td>Event-{i}</Td>
                           <Td>Type-1</Td>
                           <Td>{new Date().toLocaleString()}</Td>
@@ -157,7 +163,7 @@ export const Overview: React.FC = () => {
                         "rejected",
                       ]);
                       return (
-                        <Tr>
+                        <Tr key={i}>
                           <Td>Event-{i}</Td>
                           <Td>Type-1</Td>
                           <Td>{new Date().toLocaleString()}</Td>

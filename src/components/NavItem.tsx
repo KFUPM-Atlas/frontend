@@ -4,12 +4,6 @@ import { Link as RouteLink } from "react-router-dom";
 interface NavItemProps extends LinkItemProps {}
 
 export const NavItem: React.FC<NavItemProps> = ({ icon, name, isOn, link }) => {
-  console.log("Link: ", {
-    icon,
-    name,
-    isOn,
-    link,
-  });
   return (
     <RouteLink to={link!}>
       <Box style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>

@@ -18,6 +18,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Tag,
 } from "@chakra-ui/react";
 import { CreateEvent } from "../components/create_event/CreateEvent";
 import { Sidebar } from "../components/Sidebar";
@@ -27,7 +28,11 @@ import { randomArr } from "../utils/random_arr";
 import { Lines } from "./create_event/Lines";
 import { RequestForm } from "./create_event/RequestForm";
 
-export const TableData: React.FC = () => {
+interface TableDataProps {
+  data: any;
+  type: "event" | "request";
+}
+export const TableData: React.FC<TableDataProps> = ({ data, type }) => {
   const {
     isOpen: isOpenModal,
     onOpen: onOpenModal,
@@ -38,36 +43,61 @@ export const TableData: React.FC = () => {
       <Table variant="simple">
         <Thead>
           <Tr>
-            <Th>Sender</Th>
-            <Th>Send Date</Th>
-            <Th>Type</Th>
-            <Th>Title</Th>
-            <Th>Status</Th>
-            <Th>Action</Th>
+            {type === "request" ? (
+              <>
+                <Th>Type</Th>
+              </>
+            ) : (
+              <>
+                <Th>Event name</Th>
+                <Th>Description</Th>
+                <Th>Start Date</Th>
+                <Th>End Date</Th>
+                <Th>Tag</Th>
+                <Th>Status</Th>
+              </>
+            )}
           </Tr>
         </Thead>
         <Tbody>
-          {Array(10)
-            .fill(0)
-            .map((_, i) => {
-              const status = randomArr(["pending", "approved", "rejected"]);
-              return (
-                <Tr>
-                  <Td>Salah</Td>
-                  <Td>{new Date().toLocaleString()}</Td>
-                  <Td>Type-1</Td>
-                  <Td>Introduction to Python</Td>
-                  <Td color={mapEventStatusToColor(status as EventStatus)}>
-                    {status}
-                  </Td>
-                  <Td>
-                    <Button bg={"black"} color={"white"} onClick={onOpenModal}>
-                      View
-                    </Button>
-                  </Td>
-                </Tr>
-              );
-            })}
+          {data?.map((event, i) => {
+            return type === "request" ? (
+              <Tr key={i}>
+                <Td>{event.type}</Td>
+              </Tr>
+            ) : (
+              <Tr key={i}>
+                <Td>{event.eventName}</Td>
+                <Td>{event.description}</Td>
+                <Td>
+                  {
+                    new Date(
+                      event.startDate?.seconds * 1000
+                    ).toLocaleDateString() as any
+                  }
+                </Td>
+                <Td>
+                  {
+                    new Date(
+                      event.endDate?.seconds * 1000
+                    ).toLocaleDateString() as any
+                  }
+                </Td>
+
+                <Td>
+                  <Tag>{event.tag}</Tag>
+                </Td>
+                <Td color={mapEventStatusToColor(event.status as EventStatus)}>
+                  {event.status || "Pending"}
+                </Td>
+                {/* <Td>
+                  <Button bg={"black"} color={"white"} onClick={onOpenModal}>
+                    View
+                  </Button>
+                </Td> */}
+              </Tr>
+            );
+          })}
           <Modal isOpen={isOpenModal} onClose={onCloseModal} size={"2xl"}>
             <ModalOverlay />
             <ModalContent>

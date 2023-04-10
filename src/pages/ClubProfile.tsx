@@ -7,11 +7,17 @@ import {
   Image,
   Input,
   Stack,
+  Tag,
   Text,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
+import { useCollection } from "../hooks/useCollection";
+import { storage } from "../utils/initialize_app_if_necessary";
 
 export const ClubProfile: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -20,7 +26,39 @@ export const ClubProfile: React.FC = () => {
     onOpen: onOpenModal,
     onClose: onCloseModal,
   } = useDisclosure();
-
+  const { id } = useParams();
+  const args = ["clubId", "==", id];
+  const { documents: members } = useCollection("clubMembers", args);
+  const { documents: club } = useCollection("clubs", args);
+  const [file, setFile] = useState<any>(""); // progress
+  const [percent, setPercent] = useState(0); // Handle file upload event and update state
+  function handleChange(event) {
+    setFile(event.target.files[0]);
+    handleUpload();
+  }
+  const handleUpload = () => {
+    if (!file) {
+      alert("Please upload an image first!");
+    }
+    const storageRef = ref(storage, `/files/${id}`); // progress can be paused and resumed. It also exposes progress updates. // Receives the storage reference and the file to upload.
+    const uploadTask = uploadBytesResumable(storageRef, file as any);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        ); // update progress
+        setPercent(percent);
+      },
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          console.log(url);
+        });
+      }
+    );
+  };
   return (
     <Box minH="100vh">
       <Sidebar onClose={onClose} isOpen={isOpen} onOpen={onOpen} />
@@ -46,7 +84,7 @@ export const ClubProfile: React.FC = () => {
           <Box mt={10}>
             <Center>
               <Image
-                src="https://seeklogo.com/images/G/google-developers-logo-F8BF3155AC-seeklogo.com.png"
+                src={`https://firebasestorage.googleapis.com/v0/b/atlas-5fb14.appspot.com/o/files%2FzLO183cTJgfdJ2qikwzP?alt=media&token=20cb9bd7-8af6-4534-bf30-e23c390d0882`}
                 alt="Google Logo"
                 w={10}
                 h={5}
@@ -60,7 +98,13 @@ export const ClubProfile: React.FC = () => {
               <Text fontSize={"lg"} color={"gray.500"}>
                 This will be displayed in your club's <strong>profile</strong>
               </Text>
-              <Input id="file" type={"file"} bgColor={"bg.black"} hidden />
+              <Input
+                id="file"
+                type={"file"}
+                bgColor={"bg.black"}
+                hidden
+                onChange={handleChange}
+              />
               <Text
                 color={"white"}
                 width={"sm"}
@@ -78,14 +122,30 @@ export const ClubProfile: React.FC = () => {
               <Text fontSize={"lg"} color={"gray.500"}>
                 This will represent your club's goal
               </Text>
-              <Input />
+              <Stack>
+                {club?.[0].objectives?.map((e, i) => {
+                  return (
+                    <Text>
+                      {i + 1}- {e}
+                    </Text>
+                  );
+                })}
+              </Stack>
             </Stack>
             <Stack direction={"column"} spacing={5} mt={10}>
               <Text fontSize={"2xl"}>Club Members</Text>
               <Text fontSize={"lg"} color={"gray.500"}>
                 Showcase the clubs great <strong>members!</strong>
               </Text>
-              <Input />
+              <Stack>
+                {members?.map((e, i) => {
+                  return (
+                    <Text>
+                      {e.name} <Tag>{e.role}</Tag>
+                    </Text>
+                  );
+                })}
+              </Stack>
             </Stack>
           </Box>
         </Box>

@@ -14,9 +14,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
+import { useParams } from "react-router-dom";
 import { Lines } from "../components/create_event/Lines";
 import { Sidebar } from "../components/Sidebar";
 import { TableData } from "../components/TableData";
+import { useCollection } from "../hooks/useCollection";
 
 interface CustomBtnProps {
   isSelected: boolean;
@@ -36,7 +38,9 @@ export const Requests: React.FC = () => {
     onOpen: onOpenModal,
     onClose: onCloseModal,
   } = useDisclosure();
-
+  const { id } = useParams();
+  const args = ["clubId", "==", id];
+  const { documents } = useCollection("requests", args);
   return (
     <Box minH="100vh">
       <Sidebar onClose={onClose} isOpen={isOpen} onOpen={onOpen} />
@@ -79,7 +83,7 @@ export const Requests: React.FC = () => {
               </ModalFooter>
             </ModalContent>
           </Modal>
-          <TableData />
+          <TableData data={documents} type="request" />
         </Box>
       </Box>
     </Box>

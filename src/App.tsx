@@ -23,15 +23,14 @@ export const App: React.FC = () => {
         <Route path="/events" element={<BrowseEvents />} />
         <Route path="/club-dashboard/event" element={<Events />} />
         <Route path="/club/:id" element={<ClubPage />} />
-         <Route path="/club/events" element={<Events />} />
-          <Route path="/club/overview" element={<Overview />} />
-          <Route path="/club/requests" element={<Requests />} />
-          <Route path="/club/profile" element={<ClubProfile />} />
+        <Route path="/club/:id/events" element={<Events />} />
+        <Route path="/club/:id/overview" element={<Overview />} />
+        <Route path="/club/:id/requests" element={<Requests />} />
+        <Route path="/club/:id/profile" element={<ClubProfile />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/tickets" element={<Tickets />} />
         <Route path="*" element={<Navigate to="/login" />} />
-        
       </Routes>
     </BrowserRouter>
-   );
+  );
 };
