@@ -17,15 +17,18 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useFetchClub } from "../hooks/useFetchClub";
+import { useFirestoreFollowers } from "../hooks/useFirestoreFollowers";
+import { useCheckFollow } from "../hooks/useCheckFollow";
+import { FollowButton } from "../components/FollowButton";
 
 export const ClubPage: React.FC = () => {
-  const [follow, setFollow] = useState<boolean>(false);
   const { id } = useParams();
   const { club } = useFetchClub(id);
+  const { user } = useAuthContext();
 
   return (
     <>
-      {club && (
+      {club.id && user && (
         <>
           <Box minH="100vh">
             <Container maxW="container.lg">
@@ -41,17 +44,7 @@ export const ClubPage: React.FC = () => {
                   {club?.followers} Followers
                 </Text>
                 <Center>
-                  <Button
-                    bgColor={follow ? COLORS.PRIMARY : "white"}
-                    color={follow ? "white" : COLORS.PRIMARY}
-                    border="1px"
-                    px={8}
-                    borderRadius="full"
-                    onClick={() => setFollow(!follow)}
-                    _focus={{ bgColor: follow ? COLORS.PRIMARY : "white" }}
-                  >
-                    {follow ? "Followed" : "Follow"}
-                  </Button>
+                  <FollowButton club={club} />
                 </Center>
               </Stack>
               <ClubTabs />
