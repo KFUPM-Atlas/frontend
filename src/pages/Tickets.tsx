@@ -6,6 +6,7 @@ import { TicketEvents } from "../components/TicketEvents";
 import { useFetchRegistrations } from "../hooks/useFetchRegistrations";
 import { returnSlugs } from "../utils/return_eventIds";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { DesktopNavbar } from "../components/DesktopNavbar";
 
 export const Tickets: React.FC = () => {
   const { user } = useAuthContext();
