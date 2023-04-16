@@ -18,20 +18,37 @@ interface EventListProps {
 
 export const CategoryPick: React.FC<EventListProps> = ({ categories }) => {
   return (
-    <HStack spacing={4} overflowX="auto" w="full" pt={3}>
-      {categories.map((data, index) => (
-        <Tag
-          flexShrink="0"
-          size="md"
-          key={index}
-          borderRadius={"lg"}
-          bgColor={COLORS.PRIMARY}
-          py={3}
-          px={7}
-        >
-          <TagLabel color="white">{data}</TagLabel>
-        </Tag>
-      ))}
-    </HStack>
+    <div style={{ overflowX: "hidden", position: "relative" }}>
+      <HStack
+        spacing={4}
+        w="full"
+        py={6}
+        css={{
+          overflowX: "auto",
+          "&::-webkit-scrollbar": {
+            width: "0.4rem",
+            height: "0.4rem",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "transparent",
+          },
+        }}
+      >
+        {categories.map((data, index) => (
+          <Tag
+            flexShrink="0"
+            bgColor="white"
+            size="md"
+            key={index}
+            borderRadius={"full"}
+            py={3}
+            px={7}
+            boxShadow="sm"
+          >
+            <TagLabel color={COLORS.PRIMARY}>{data}</TagLabel>
+          </Tag>
+        ))}
+      </HStack>
+    </div>
   );
 };
