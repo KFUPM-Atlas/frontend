@@ -9,7 +9,7 @@ import {
     ModalOverlay, Select, Spacer, Stack, Td, Text, Textarea, Tr, VStack,
 } from "@chakra-ui/react";
 import {COLORS} from "../../core/constants";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useCreateNewClub} from "../../hooks/useCreateNewClub";
 import {useFetchSupervisors} from "../../hooks/useFetchSupervisors";
 import {useModifyClub} from "../../hooks/useModifyClub";
@@ -33,14 +33,14 @@ export const CreateAndModifyClub: React.FC<CreateClubProps> = ({isOpen, onClose,
     const { modifyClub } = useModifyClub()
     const supervisors = useFetchSupervisors().supervisors
 
-    if (!isNewClub) {
-        setName(data.name)
-        setDesc(data.description)
-        setHQ(data.headQuarter)
-        setPresidentId(data.presidentId)
-        setSupervisorId(data.supervisorId)
-        setClubGender(data.clubGender)
-    }
+    useEffect(() => {
+        setName(isNewClub ? "" : data.name)
+        setDesc(isNewClub ? "" : data.description)
+        setHQ(isNewClub ? "" : data.headQuarter)
+        setPresidentId(isNewClub ? "" : data.presidentId)
+        setSupervisorId(isNewClub ? "" : data.supervisorId)
+        setClubGender(isNewClub ? "" : data.clubGender)
+    }, [isOpen])
 
     const createClubHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -77,7 +77,7 @@ export const CreateAndModifyClub: React.FC<CreateClubProps> = ({isOpen, onClose,
                             <Text>اسم النادي:</Text>
                             <FormControl isRequired>
                                 <Input value={name} mt={2} style={{borderColor: COLORS.PRIMARY}}
-                                       onChange={(e) => setName(e.target.value)}/>
+                                       onChange={(e) => setName(e.target.value)} />
                             </FormControl>
                             <Text mt={5}>وصف النادي:</Text>
                             <FormControl isRequired>
@@ -104,7 +104,7 @@ export const CreateAndModifyClub: React.FC<CreateClubProps> = ({isOpen, onClose,
                                 <VStack width="50%" style={{alignItems: "flex-start"}}>
                                     <Text width={200}>المشرف على النادي:</Text>
                                     <FormControl isRequired>
-                                        <Select  value={isNewClub ? null: data.supervisorId} style={{textAlign: "center"}} placeholder="يرجى الإختيار"
+                                        <Select  value={supervisorId} style={{textAlign: "center"}} placeholder="يرجى الإختيار"
                                                 onChange={(e) => setSupervisorId(e.target.value)}>
                                             {supervisors.map((supervisor) => (
                                                 <option value={supervisor.uid}>{supervisor.name}</option>
@@ -116,7 +116,7 @@ export const CreateAndModifyClub: React.FC<CreateClubProps> = ({isOpen, onClose,
                                 <VStack width="50%" style={{alignItems: "flex-start"}}>
                                     <Text width={200}>الجنس المستهدف:</Text>
                                     <FormControl isRequired>
-                                        <Select value={isNewClub ? null: data.clubGender} style={{textAlign: "center"}} placeholder="يرجى الإختيار"
+                                        <Select value={clubGender} style={{textAlign: "center"}} placeholder="يرجى الإختيار"
                                                 onChange={(e) => setClubGender(e.target.value)}>
                                             <option value='male'>ذكور</option>
                                             <option value='female'>إناث</option>
