@@ -74,23 +74,6 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
             >
               <Icon as={HiOutlineTicket} w={6} h={6} color="white" />
             </Button>
-            {user && (
-              <Button
-                px={10}
-                py={6}
-                borderRadius={7}
-                bgColor={"transparent"}
-                _focus={{ bgColor: "transparent" }}
-              >
-                <Icon
-                  as={MdOutlineLogout}
-                  onClick={() => logout()}
-                  w={6}
-                  h={6}
-                  color="white"
-                />
-              </Button>
-            )}
           </HStack>
         </Box>
       )}
