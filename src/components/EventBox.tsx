@@ -14,7 +14,7 @@ export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
 
   return (
     <Box
-      pt={10}
+      pt={4}
       position="relative"
       onClick={() => navigate(`/event/${event?.slug}`)}
     >
