@@ -21,7 +21,7 @@ export const NavItem: React.FC<NavItemProps> = ({ icon, name, isOn, link }) => {
           role="group"
           cursor="pointer"
         >
-          {icon && <Icon mr="4" fontSize="16" as={icon} />}
+          {icon && <Icon mr="4" ml="4" fontSize="16" as={icon} />}
           {name}
         </Flex>
       </Box>

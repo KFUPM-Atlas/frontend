@@ -22,10 +22,10 @@ export const SupervisorSidebarContent: React.FC<NavItemProps> = ({ onClose }) =>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {supervisorLinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} text={link.name} />
+        <NavItem key={link.name} icon={link.icon} name={link.name} link={link.link}/>
       ))}
       <Spacer h={"lg"} />
-      <NavItem key={324} icon={BiLogOut} text={"تسجيل الخروج"} />
+      <NavItem key={324} icon={BiLogOut} name={"تسجيل الخروج"} />
     </Box>
   );
 };

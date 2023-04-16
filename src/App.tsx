@@ -11,6 +11,9 @@ import { Tickets } from "./pages/Tickets";
 import { Overview } from "./pages/Overview";
 import { Requests } from "./pages/Requests";
 import { ClubProfile } from "./pages/ClubProfile";
+import {SupervisorClubs} from "./pages/SupervisorClubs";
+import {SupervisorDeptPage} from "./pages/SupervisorDeptPage";
+import {SupervisorRequests} from "./pages/SupervisorRequests";
 
 export const App: React.FC = () => {
   return (
@@ -29,6 +32,9 @@ export const App: React.FC = () => {
           <Route path="/club/profile" element={<ClubProfile />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/tickets" element={<Tickets />} />
+          <Route path="supervisor/clubs" element={<SupervisorClubs/>}/>
+          <Route path="supervisor/dept" element={<SupervisorDeptPage/>}/>
+          <Route path="supervisor/requests" element={<SupervisorRequests/>}/>
         <Route path="*" element={<Navigate to="/login" />} />
         
       </Routes>

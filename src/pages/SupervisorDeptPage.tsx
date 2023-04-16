@@ -10,13 +10,13 @@ import {
     Tr,
     Th,
     Tbody,
-    Td, HStack, Card, CardBody, Text, cssVar, Input, Icon, Checkbox, Spacer,
+    Td, HStack, Card, CardBody, Text, cssVar, Input, Icon, Checkbox, Spacer, Textarea,
 } from "@chakra-ui/react";
 import {SupervisorSidebar} from "../components/SupervisorSidebar";
 import {
     FiEye,
     FiEdit3,
-    FiUploadCloud
+    FiUploadCloud,
 } from "react-icons/fi";
 import {COLORS} from "../core/constants";
 
@@ -50,7 +50,7 @@ export const SupervisorDeptPage: React.FC = () => {
                             <CardBody p={0}>
                                 <Box mt={5} mr={8} ml={8}>
                                     <Text>وصف القسم</Text>
-                                    <Input mt={2} height={100}></Input>
+                                    <Textarea mt={2} height={100} style={{borderColor: COLORS.PRIMARY}}></Textarea>
                                 </Box>
                                 <Box mt={12} mr={8} ml={8}>
                                     <HStack>
@@ -95,10 +95,10 @@ export const SupervisorDeptPage: React.FC = () => {
                                                 </Tr>
                                                 <Tr>
                                                     <Td>2</Td>
-                                                    <Td><Input/></Td>
-                                                    <Td><Input/></Td>
-                                                    <Td><Input/></Td>
-                                                    <Td><Input/></Td>
+                                                    <Td><Input style={{borderColor: COLORS.PRIMARY}}/></Td>
+                                                    <Td><Input style={{borderColor: COLORS.PRIMARY}}/></Td>
+                                                    <Td><Input style={{borderColor: COLORS.PRIMARY}}/></Td>
+                                                    <Td><Input style={{borderColor: COLORS.PRIMARY}}/></Td>
                                                     <Td>
                                                         <Button bg="white">
                                                             <Icon as={FiUploadCloud}/>

@@ -3,7 +3,7 @@ import {
     Button, Center,
     Flex,
     Heading,
-    HStack,
+    HStack, Icon,
     Table,
     TableContainer, Tag, Tbody, Td,
     Th,
@@ -13,30 +13,33 @@ import {
 } from "@chakra-ui/react";
 import {SupervisorSidebar} from "../components/SupervisorSidebar";
 import {COLORS} from "../core/constants";
-import {CreateClub} from "../components/create_club/CreateClub";
+import {CreateAndModifyClub} from "../components/create_club/CreateAndModifyClub";
+import {useFetchSupervisorClubs} from "../hooks/useFetchSupervisorClubs";
+import {FiTrash} from "react-icons/all";
+import {useAuthContext} from "../hooks/useAuthContext";
+import {RemoveClubAlert} from "../components/remove_club_alert/RemoveClubAlert";
+import {useState} from "react";
+
 
 export const SupervisorClubs: React.FC = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const clubsData = [
-        {id: 1, name: "نادي الحاسب"},
-        {id: 2, name: "نادي الجوالة"},
-        {id: 3, name: "نادي هندسة النظم"},
-        {id: 4, name: "نادي مطوري جوجل"},
-        {id: 5, name: "نادي التصوير"},
-        {id: 6, name: "نادي الفيزياء"},
-        {id: 7, name: "نادي الزيارات"},
-        {id: 8, name: "نادي خدمة المجتمع"},
-        {id: 9, name: "نادي الهندسة الكهربائية"},
-        {id: 10, name: "نادي هندسة الطيران والفضاء"},
-        {id: 11, name: "نادي وعينا"},
-
-    ];
-
+    const [clubIdToDelete, setClubIdToDelete] = useState<string>("")
+    const [isNewClub, setIsNewClub] = useState<boolean>(true)
+    const [clubToModifyData, setClubToModifyData] = useState<any>()
+    const clubsData = useFetchSupervisorClubs().clubs
     const {
         isOpen: isOpenModal,
         onOpen: onOpenModal,
         onClose: onCloseModal,
     } = useDisclosure();
+
+    const {
+        isOpen: isOpenAlert,
+        onOpen: onOpenAlert,
+        onClose: onCloseAlert,
+    } = useDisclosure();
+
+    console.log(useAuthContext().user.uid)
 
     return (
         <div dir="rtl">
@@ -53,11 +56,12 @@ export const SupervisorClubs: React.FC = () => {
     <Flex justifyContent={"space-between"}>
         <Heading>الأندية</Heading>
         </Flex>
-        <Tag justifyContent="center" size={'md'} key={'md'} variant='outline' color="black" mx="auto" width={"100px"} height={7} mt={5}>
+        <Tag justifyContent="center" size={'md'} key={'md'} variant='outline'
+             color="black" mx="auto" width={"100px"} height={7} mt={5} boxShadow="base">
             {clubsData.length + " نادي"}
         </Tag>
 
-        <TableContainer mt="5" maxHeight="400px" overflowY="auto"
+        <TableContainer mt="5" maxHeight="400px" overflowY="auto" boxShadow="lg"
                         style={{border: "1px solid var(--chakra-colors-chakra-border-color)",
                         borderRadius: "10px"}}>
             <Table>
@@ -65,7 +69,7 @@ export const SupervisorClubs: React.FC = () => {
                     <Tr>
                         <Td>الرقم</Td>
                         <Td>النادي</Td>
-                        <Td>الإجراء</Td>
+                        <Td style={{textAlign: "center"}}>الإجراء</Td>
                     </Tr>
                 </Thead>
                 <Tbody>
@@ -74,8 +78,19 @@ export const SupervisorClubs: React.FC = () => {
                             <Td>{i + 1}</Td>
                             <Td>{row.name}</Td>
                             <Td>
-                                <Button bg={COLORS.PRIMARY} color="white" width={"50%"}>
+                                <Button bg={COLORS.PRIMARY} color="white" width={"50%"}
+                                onClick={() => {
+                                    setIsNewClub(false)
+                                    setClubToModifyData(row)
+                                    onOpenModal()
+                                }}>
                                     تعديل
+                                </Button>
+                                <Button bg="red.500" mr={5} onClick={() => {
+                                    onOpenAlert()
+                                    setClubIdToDelete(row.clubId)
+                                }}>
+                                    <Icon as={FiTrash} color="white"/>
                                 </Button>
                             </Td>
                         </Tr>
@@ -83,14 +98,20 @@ export const SupervisorClubs: React.FC = () => {
                 </Tbody>
             </Table>
         </TableContainer>
-        <Button bg={COLORS.PRIMARY} color="white" width={"20%"} mt={8} onClick={onOpenModal}>
+        <Button bg={COLORS.PRIMARY} color="white" width={"20%"} mt={8} onClick={() => {
+            setIsNewClub(true)
+            onOpenModal()
+        }}>
             إضافة نادي
         </Button>
-        <CreateClub
+        <CreateAndModifyClub
             isOpen={isOpenModal}
             onClose={onCloseModal}
             onOpen={onOpenModal}
+            isNewClub={isNewClub}
+            data={clubToModifyData}
         />
+        <RemoveClubAlert isOpen={isOpenAlert} onClose={onCloseAlert} onOpen={onOpenAlert} clubId={clubIdToDelete}/>
     </Box>
     </Box>
     </Box>
