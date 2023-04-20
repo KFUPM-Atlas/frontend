@@ -1,4 +1,13 @@
-import { Box, Image, HStack, Stack, Text, Icon } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  HStack,
+  Stack,
+  Text,
+  Icon,
+  AvatarGroup,
+  Avatar,
+} from "@chakra-ui/react";
 import { COLORS } from "../core/constants";
 import { BiTimeFive } from "react-icons/bi";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -17,20 +26,38 @@ export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
       pt={4}
       position="relative"
       onClick={() => navigate(`/event/${event?.slug}`)}
+      minWidth="308px" // add a minWidth property to adjust the size of the box
+      boxShadow="lg"
     >
       <Image
-        src="./laptop.svg"
+        src="./ctf.jpeg"
         w={"full"}
         h={200}
         objectFit="cover"
         borderRadius={10}
-        boxShadow="md"
       />
       <Box
         position="absolute"
+        top={7}
+        color={COLORS.PRIMARY}
+        left={5}
+        p={2}
+        borderRadius={"full"}
+        boxShadow="xl"
+      >
+        <AvatarGroup size="xs" max={3}>
+          <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence" />
+          <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
+          <Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
+          <Avatar name="Prosper Otemuyiwa" src="https://bit.ly/prosper-baba" />
+          <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
+        </AvatarGroup>
+      </Box>
+      <Box
+        position="absolute"
         bottom={5}
-        bgColor={COLORS.PRIMARY}
-        color="white"
+        bgColor={"white"}
+        color={COLORS.PRIMARY}
         margin-left="auto"
         margin-right="auto"
         left={5}
@@ -63,7 +90,7 @@ export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
           <Stack>
             <HStack color="gray.400">
               <Icon as={BiTimeFive} w={3} h={3} />
-              <Text fontWeight="medium" fontSize={10}>
+              <Text fontWeight="medium" fontSize={8}>
                 {startDate?.toLocaleString("en-US", {
                   hour: "numeric",
                   hour12: true,
