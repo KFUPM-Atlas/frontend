@@ -27,24 +27,16 @@ export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
       position="relative"
       onClick={() => navigate(`/event/${event?.slug}`)}
       minWidth="308px" // add a minWidth property to adjust the size of the box
-      boxShadow="lg"
     >
       <Image
         src="./ctf.jpeg"
         w={"full"}
         h={200}
         objectFit="cover"
-        borderRadius={10}
+        borderRadius="lg"
+        boxShadow="lg"
       />
-      <Box
-        position="absolute"
-        top={7}
-        color={COLORS.PRIMARY}
-        left={5}
-        p={2}
-        borderRadius={"full"}
-        boxShadow="xl"
-      >
+      <Box position="absolute" top={7} color={COLORS.PRIMARY} left={5} p={2}>
         <AvatarGroup size="xs" max={3}>
           <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence" />
           <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
@@ -64,7 +56,8 @@ export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
         right={5}
         text-align="center"
         px={4}
-        borderRadius={10}
+        borderRadius="lg"
+        boxShadow="lg"
       >
         <HStack justifyContent="space-between">
           <Stack py={3}>
@@ -74,14 +67,7 @@ export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
               </Text>
             </HStack>
             <HStack>
-              <Image
-                src="./gdsc.jpeg"
-                w={5}
-                h={5}
-                objectFit="cover"
-                borderRadius={"full"}
-                boxShadow="md"
-              />
+              <Image src="./gdsc.jpeg" w={5} h={5} objectFit="cover" />
               <Text fontWeight="normal" fontSize={8}>
                 {event?.club}
               </Text>
