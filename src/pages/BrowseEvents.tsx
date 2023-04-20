@@ -16,17 +16,20 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { SearchBox } from "../components/SearchBox";
 import { CategoryPick } from "../components/CategoryPick";
 import { MobileNavbar } from "../components/MobileNavbar";
-import { useLogout } from "../hooks/useLogout";
 import { HorizontalEventList } from "../components/HorizontalEventList";
 import { useCollection } from "../hooks/useCollection";
+import { getTagNames } from "../utils/tagToArray";
 export const BrowseEvents: React.FC = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
-  const { documents: userProfile, loading } = useCollection("users", [
+  const { documents: userProfile } = useCollection("users", [
     "uid",
     "==",
     user?.uid,
   ]);
+
+  const { documents: tags, loading } = useCollection("tags", []);
+  console.log(tags);
 
   return (
     <>
@@ -42,7 +45,7 @@ export const BrowseEvents: React.FC = () => {
             {user && userProfile && (
               <Stack spacing={1}>
                 <Heading
-                  bgGradient="linear(to-l, gray.600, gray.900)"
+                  bgGradient="linear(to-l, gray.500, gray.900)"
                   bgClip="text"
                   fontSize="2xl"
                   fontWeight="extrabold"
@@ -82,9 +85,7 @@ export const BrowseEvents: React.FC = () => {
             )}
           </HStack>
           <SearchBox />
-          <CategoryPick
-            categories={["💻 Tech", "🧳 Business", "🚀 Entertainment", "Other"]}
-          />
+          {tags && <CategoryPick categories={getTagNames(tags)} />}
           <HStack justifyContent="space-between" pt={0}>
             <Text fontWeight="bold">Events for you</Text>
             <Text fontWeight="medium" color={COLORS.TEXT_LIGHT}>
