@@ -23,14 +23,10 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
     <>
       {!isLargerThan450 && (
         <Box
-          bgColor={COLORS.PRIMARY}
           boxShadow="xs"
           py={5}
           position={"sticky"}
-          bottom={2}
-          mx={4}
-          my={4}
-          borderRadius={12}
+          bottom={0}
           bgGradient="linear(to-l, gray.600, gray.900)"
         >
           <HStack justifyContent="space-evenly" color={COLORS.TEXT_LIGHT}>
@@ -73,6 +69,16 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
               onClick={() => navigate("/tickets")}
             >
               <Icon as={HiOutlineTicket} w={6} h={6} color="white" />
+            </Button>
+            <Button
+              px={10}
+              py={6}
+              borderRadius={7}
+              bgColor={"transparent"}
+              _focus={{ bgColor: "transparent" }}
+              onClick={() => logout()}
+            >
+              <Icon as={MdOutlineLogout} w={6} h={6} color="white" />
             </Button>
           </HStack>
         </Box>
