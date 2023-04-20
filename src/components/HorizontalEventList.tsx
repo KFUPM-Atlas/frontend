@@ -14,7 +14,6 @@ export const HorizontalEventList: React.FC<HorizontalEventListProps> = ({}) => {
         pt={0}
         spacing={-10}
         w="full"
-        py={6}
         css={{
           overflowX: "auto",
           "&::-webkit-scrollbar": {
