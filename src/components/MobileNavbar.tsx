@@ -26,8 +26,10 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({}) => {
           boxShadow="xs"
           py={5}
           position={"sticky"}
-          bottom={0}
+          bottom={2}
           bgGradient="linear(to-l, gray.600, gray.900)"
+          m={2}
+          borderRadius={10}
         >
           <HStack justifyContent="space-evenly" color={COLORS.TEXT_LIGHT}>
             <Button
