@@ -32,18 +32,6 @@ export const BrowseEvents: React.FC = () => {
             px={2}
             justifyContent="space-between"
           >
-            {!user && (
-              <Button
-                bg={"white"}
-                color={COLORS.PRIMARY}
-                boxShadow={"lg"}
-                as={"a"}
-                onClick={() => navigate("/login")}
-                fontSize="sm"
-              >
-                Login
-              </Button>
-            )}
             {user && (
               <Stack spacing={1}>
                 <Heading
@@ -59,7 +47,25 @@ export const BrowseEvents: React.FC = () => {
                 </Text>
               </Stack>
             )}
-            <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
+
+            {user && (
+              <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
+            )}
+            {!user && (
+              <>
+                <Text fontWeight="bold">Logo</Text>
+                <Button
+                  bg={"white"}
+                  color={COLORS.PRIMARY}
+                  boxShadow={"lg"}
+                  as={"a"}
+                  onClick={() => navigate("/login")}
+                  fontSize="sm"
+                >
+                  Login
+                </Button>
+              </>
+            )}
           </HStack>
           <SearchBox />
           <CategoryPick
