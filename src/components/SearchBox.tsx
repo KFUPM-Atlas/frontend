@@ -18,7 +18,12 @@ export const SearchBox: React.FC<SearchBoxProps> = ({}) => {
             pointerEvents="none"
             children={<SearchIcon color="gray.300" />}
           />
-          <Input placeholder="Hackathon..." borderRadius={10} />
+          <Input
+            placeholder="Tech Event, Webinar.."
+            borderRadius={20}
+            border="1px"
+            borderColor="gray.200"
+          />
         </InputGroup>
       </Stack>
     </Box>
