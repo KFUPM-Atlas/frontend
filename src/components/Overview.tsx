@@ -21,8 +21,8 @@ export const Overview: React.FC<OverviewProps> = ({ event }) => {
               Date
             </Text>
             <Text>
-              {startDate?.getHours()}:{startDate?.getMinutes()} -{" "}
-              {endDate.getHours()}:{startDate?.getMinutes()}
+              {startDate?.getDate()}{" "}
+              {startDate?.toLocaleString("default", { month: "short" })}
             </Text>
           </Stack>
         </HStack>
@@ -32,7 +32,17 @@ export const Overview: React.FC<OverviewProps> = ({ event }) => {
             <Text fontSize={15} color={COLORS.TEXT_LIGHT}>
               Duration
             </Text>
-            <Text>{event?.duration}m</Text>
+            <Text>
+              {startDate?.toLocaleString("en-US", {
+                hour: "numeric",
+                hour12: true,
+              })}
+              -
+              {endDate?.toLocaleString("en-US", {
+                hour: "numeric",
+                hour12: true,
+              })}{" "}
+            </Text>
           </Stack>
         </HStack>
       </HStack>
