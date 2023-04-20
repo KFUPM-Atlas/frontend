@@ -31,7 +31,6 @@ export const HorizontalEventList: React.FC<HorizontalEventListProps> = ({}) => {
             bgColor="white"
             size="md"
             key={index}
-            borderRadius={"full"}
             mr={8}
             boxShadow="sm"
           >
