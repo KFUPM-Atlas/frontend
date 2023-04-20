@@ -22,7 +22,8 @@ export const CategoryPick: React.FC<EventListProps> = ({ categories }) => {
       <HStack
         spacing={4}
         w="full"
-        py={6}
+        pb={4}
+        pt={6}
         css={{
           overflowX: "auto",
           "&::-webkit-scrollbar": {
