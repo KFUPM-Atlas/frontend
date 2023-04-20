@@ -4,7 +4,7 @@ import {
   Tag,
   FormControl,
   Input,
-  Button,
+  Text,
   TagLabel,
 } from "@chakra-ui/react";
 import { SearchBox } from "./SearchBox";
@@ -44,6 +44,8 @@ export const CategoryPick: React.FC<EventListProps> = ({ categories }) => {
             py={3}
             px={7}
             boxShadow="sm"
+            border="1px"
+            borderColor="gray.100"
           >
             <TagLabel color={COLORS.PRIMARY}>{data}</TagLabel>
           </Tag>
