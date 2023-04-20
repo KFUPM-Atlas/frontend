@@ -7,6 +7,7 @@ import {
   Button,
   Stack,
   Heading,
+  AvatarBadge,
 } from "@chakra-ui/react";
 import { EventList } from "../components/EventList";
 import { COLORS } from "../core/constants";
@@ -49,7 +50,11 @@ export const BrowseEvents: React.FC = () => {
             )}
 
             {user && (
-              <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
+              <Stack direction="row" spacing={4}>
+                <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov">
+                  <AvatarBadge boxSize="1em" bg="green.500" />
+                </Avatar>
+              </Stack>
             )}
             {!user && (
               <>
@@ -69,13 +74,7 @@ export const BrowseEvents: React.FC = () => {
           </HStack>
           <SearchBox />
           <CategoryPick
-            categories={[
-              "All",
-              "💻 Tech",
-              "🧳 Business",
-              "🚀 Entertainment",
-              "Other",
-            ]}
+            categories={["💻 Tech", "🧳 Business", "🚀 Entertainment", "Other"]}
           />
           <HStack justifyContent="space-between" pt={0}>
             <Text fontWeight="bold">Events for you</Text>
