@@ -46,8 +46,8 @@ export const EventPage: React.FC = () => {
           minH="100vh"
         >
           <Image
-            src="/hackathon.jpeg"
-            objectFit="fill"
+            src="/ctf.jpeg"
+            objectFit="cover"
             boxShadow="md"
             minH="60vh"
             w={{ base: "100%", lg: "50%" }}
