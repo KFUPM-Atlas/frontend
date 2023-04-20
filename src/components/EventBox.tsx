@@ -29,7 +29,7 @@ export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
       minWidth="308px" // add a minWidth property to adjust the size of the box
     >
       <Image
-        src="./ctf.jpeg"
+        src={event.posterUrl}
         w={"full"}
         h={200}
         objectFit="cover"
