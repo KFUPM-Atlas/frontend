@@ -28,8 +28,7 @@ export const BrowseEvents: React.FC = () => {
     user?.uid,
   ]);
 
-  const { documents: tags, loading } = useCollection("tags", []);
-  console.log(tags);
+  const { documents: tags } = useCollection("tags", []);
 
   return (
     <>
