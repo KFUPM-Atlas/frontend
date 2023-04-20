@@ -18,9 +18,15 @@ import { CategoryPick } from "../components/CategoryPick";
 import { MobileNavbar } from "../components/MobileNavbar";
 import { useLogout } from "../hooks/useLogout";
 import { HorizontalEventList } from "../components/HorizontalEventList";
+import { useCollection } from "../hooks/useCollection";
 export const BrowseEvents: React.FC = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
+  const { documents: userProfile, loading } = useCollection("users", [
+    "uid",
+    "==",
+    user?.uid,
+  ]);
 
   return (
     <>
@@ -33,7 +39,7 @@ export const BrowseEvents: React.FC = () => {
             px={2}
             justifyContent="space-between"
           >
-            {user && (
+            {user && userProfile && (
               <Stack spacing={1}>
                 <Heading
                   bgGradient="linear(to-l, gray.600, gray.900)"
@@ -44,14 +50,17 @@ export const BrowseEvents: React.FC = () => {
                   Welcome Back!
                 </Heading>
                 <Text color={COLORS.TEXT_LIGHT} fontWeight="medium">
-                  {user.email}
+                  {userProfile[0]?.name}
                 </Text>
               </Stack>
             )}
 
-            {user && (
+            {user && userProfile && (
               <Stack direction="row" spacing={4}>
-                <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov">
+                <Avatar
+                  name={userProfile[0]?.name}
+                  src={userProfile[0]?.profilePictureUrl}
+                >
                   <AvatarBadge boxSize="1em" bg="green.500" />
                 </Avatar>
               </Stack>
