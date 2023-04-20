@@ -50,6 +50,7 @@ export const ClubPage: React.FC = () => {
               <ClubTabs />
             </Container>
           </Box>
+          <MobileNavbar />
         </>
       )}
     </>

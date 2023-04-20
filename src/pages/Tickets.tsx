@@ -29,6 +29,7 @@ export const Tickets: React.FC = () => {
           {registrations && <TicketEvents eventIds={eventIds} />}
         </Container>
       </Box>
+      <MobileNavbar />
     </>
   );
 };
