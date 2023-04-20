@@ -46,7 +46,7 @@ export const EventPage: React.FC = () => {
           minH="100vh"
         >
           <Image
-            src="/ctf.jpeg"
+            src={event.posterUrl}
             objectFit="cover"
             boxShadow="md"
             minH="60vh"
