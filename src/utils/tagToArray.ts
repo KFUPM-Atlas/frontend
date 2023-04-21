@@ -1,9 +1,4 @@
-type TagObject = {
-  tag: string;
-  id: string;
-};
-
-export const getTagNames = (tagObjects: TagObject[]): string[] => {
+export const getTagNames = (tagObjects): string[] => {
   const tagNames = tagObjects.map((tagObject) => {
     let tagString = tagObject.tag;
 
