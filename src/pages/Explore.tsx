@@ -19,8 +19,11 @@ import { CategoryPick } from "../components/CategoryPick";
 import { TabElement } from "../components/TabElement";
 import { useFetchClubs } from "../hooks/useFetchClubs";
 import { ClubOverviewBox } from "../components/ClubOverviewBox";
+import { useCollection } from "../hooks/useCollection";
+import { getTagNames } from "../utils/tagToArray";
 export const Explore: React.FC = () => {
   const { clubs } = useFetchClubs();
+  const { documents: tags } = useCollection("tags", []);
 
   return (
     <>
@@ -37,9 +40,7 @@ export const Explore: React.FC = () => {
             Explore
           </Heading>
           <SearchBox />
-          <CategoryPick
-            categories={["💻 Tech", "🧳 Business", "🚀 Entertainment", "Other"]}
-          />
+          {tags && <CategoryPick categories={getTagNames(tags)} />}
           <Tabs pt={0}>
             <TabList borderColor="white">
               <TabElement title="Events" />
