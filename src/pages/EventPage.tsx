@@ -28,7 +28,8 @@ import { useFetchEvent } from "../hooks/useFetchEvent";
 import { useFirestoreRegistrations } from "../hooks/useFirestoreRegistrations";
 import { useEffect } from "react";
 import { useCheckRegistration } from "../hooks/useCheckRegistration";
-
+import { AiOutlineLeftCircle } from "react-icons/ai";
+import { FiChevronLeft } from "react-icons/fi";
 export const EventPage: React.FC = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -45,18 +46,46 @@ export const EventPage: React.FC = () => {
           flexDir={{ base: "column", lg: "row-reverse" }}
           minH="100vh"
         >
-          <Image
-            src={event.posterUrl}
-            objectFit="cover"
-            boxShadow="md"
-            minH="60vh"
-            w={{ base: "100%", lg: "50%" }}
-          />
+          <Box position="relative">
+            <Image
+              src={event.posterUrl}
+              objectFit="cover"
+              boxShadow="md"
+              minH="60vh"
+              w={{ base: "100%", lg: "50%" }}
+            />
+            <Box
+              top={7}
+              borderRadius="full"
+              px={3}
+              pt={3}
+              pb={1.5}
+              opacity={0.5}
+              left={4}
+              position="absolute"
+              bgColor="gray"
+              onClick={() => navigate("/events")}
+            >
+              <Icon w={5} h={5} pr={0.5} color="white" as={FiChevronLeft} />
+            </Box>
+            <Box
+              top={7}
+              borderRadius="full"
+              right={4}
+              position="absolute"
+              bgColor="gray"
+            >
+              <Image
+                src="/gdsc.jpeg"
+                w={12}
+                h={12}
+                objectFit="cover"
+                borderRadius={"full"}
+                boxShadow="md"
+              />{" "}
+            </Box>
+          </Box>
           <Box minH="40vh" w={{ base: "100%", lg: "50%" }} boxShadow="lg" p={8}>
-            <HStack spacing={1} pb={4}>
-              <Icon as={ArrowBackIcon} />
-              <Text onClick={() => navigate("/events")}>Back</Text>
-            </HStack>
             <HStack justifyContent="space-between">
               <Heading size="lg" color={COLORS.PRIMARY}>
                 {event?.eventName}
