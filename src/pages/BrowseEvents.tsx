@@ -8,6 +8,7 @@ import {
   Stack,
   Heading,
   AvatarBadge,
+  Image,
 } from "@chakra-ui/react";
 import { EventList } from "../components/EventList";
 import { COLORS } from "../core/constants";
@@ -69,7 +70,14 @@ export const BrowseEvents: React.FC = () => {
             )}
             {!user && (
               <>
-                <Text fontWeight="bold">Logo</Text>
+                <Heading
+                  bgGradient="linear(to-l, gray.500, gray.900)"
+                  bgClip="text"
+                  fontSize="2xl"
+                  fontWeight="extrabold"
+                >
+                  Welcome to Atlas
+                </Heading>{" "}
                 <Button
                   bg={"white"}
                   color={COLORS.PRIMARY}
