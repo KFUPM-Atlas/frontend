@@ -2,11 +2,22 @@ import { Box, CloseButton, Flex, Spacer, Text } from "@chakra-ui/react";
 import { linkItems } from "../utils/link_items";
 import { NavItem } from "./NavItem";
 import { BiLogOut } from "react-icons/bi";
+import { useParams } from "react-router-dom";
+import { FiCompass, FiHome, FiStar, FiTrendingUp } from "react-icons/fi";
+
 interface NavItemProps {
   onClose: any;
 }
 
 export const SidebarContent: React.FC<NavItemProps> = ({ onClose }) => {
+  const { id } = useParams();
+  const links = [
+    { name: "Overview", icon: FiHome, link: `/club/${id}/overview` },
+    { name: "Events", icon: FiTrendingUp, link: `/club/${id}/events` },
+    { name: "Requests", icon: FiCompass, link: `/club/${id}/requests` },
+    { name: "Club Profile", icon: FiStar, link: `/club/${id}/profile` },
+  ];
+
   return (
     <Box
       bg={"black"}
@@ -21,7 +32,7 @@ export const SidebarContent: React.FC<NavItemProps> = ({ onClose }) => {
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-      {linkItems.map((link) => (
+      {links.map((link) => (
         <NavItem
           key={link.name}
           icon={link.icon}

@@ -7,28 +7,48 @@ interface Budget {
 }
 
 interface CreateEventStore {
-  eventTitle: string;
-  eventType: string;
+  title: string;
+  description: string;
   fromDate: string;
   toDate: string;
   budget: Budget[];
-  setEvenTitle: (eventTitle: string) => void;
-  setEventType: (eventType: string) => void;
+  tag: string;
+  posterUrl: string;
+  id: string;
+  building: string;
+  room: string;
+  setBuilding: (building: string) => void;
+  setRoom: (room: string) => void;
+  setId: (id: string) => void;
+  setPosterUrl: (posterUrl: string) => void;
+  setTitle: (eventTitle: string) => void;
+  setDescription: (eventType: string) => void;
   setFromDate: (fromDate: string) => void;
   setToDate: (toDate: string) => void;
+  setTag: (tag: string) => void;
   addBudget: (budget: Budget) => void;
   removeBudget: (budget: Budget) => void;
   clearBudget: () => void;
 }
 
 const useCreateEventStore = create<CreateEventStore>((set) => ({
-  eventTitle: "",
-  eventType: "",
+  title: "",
+  description: "",
   fromDate: "",
   toDate: "",
   budget: [],
-  setEvenTitle: (eventTitle: string) => set({ eventTitle }),
-  setEventType: (eventType: string) => set({ eventType }),
+  tag: "",
+  posterUrl: "",
+  id: "",
+  building: "",
+  room: "",
+  setBuilding: (building: string) => set({ building }),
+  setRoom: (room: string) => set({ room }),
+  setId: (id: string) => set({ id }),
+  setPosterUrl: (posterUrl: string) => set({ posterUrl }),
+  setTag: (tag: string) => set({ tag }),
+  setTitle: (title: string) => set({ title }),
+  setDescription: (description: string) => set({ description }),
   setFromDate: (fromDate: string) => set({ fromDate }),
   setToDate: (toDate: string) => set({ toDate }),
   addBudget: (budget: Budget) =>

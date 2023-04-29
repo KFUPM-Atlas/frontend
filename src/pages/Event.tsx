@@ -12,10 +12,12 @@ import {
   Tbody,
   Td,
 } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 import { CreateEvent } from "../components/create_event/CreateEvent";
 import { Sidebar } from "../components/Sidebar";
 import { TableData } from "../components/TableData";
 import { EventStatus } from "../enums/event_status";
+import { useCollection } from "../hooks/useCollection";
 import { mapEventStatusToColor } from "../utils/map_event_status_to_color";
 import { randomArr } from "../utils/random_arr";
 
@@ -26,7 +28,10 @@ export const Events: React.FC = () => {
     onOpen: onOpenModal,
     onClose: onCloseModal,
   } = useDisclosure();
-
+  const { id } = useParams();
+  const args = ["clubId", "==", id];
+  const { documents } = useCollection("events", args);
+  console.log(documents);
   return (
     <Box minH="100vh">
       <Sidebar onClose={onClose} isOpen={isOpen} onOpen={onOpen} />
@@ -49,7 +54,7 @@ export const Events: React.FC = () => {
               onOpen={onOpenModal}
             />
           </Flex>
-          <TableData />
+          <TableData data={documents} type="event" />
         </Box>
       </Box>
     </Box>

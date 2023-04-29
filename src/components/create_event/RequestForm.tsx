@@ -20,7 +20,7 @@ interface RequestsProps {
 }
 export const RequestForm: React.FC<RequestsProps> = ({ msg }) => {
   const [title, setTitle] = useState<string>("");
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<any>(0);
   const [reason, setReason] = useState<string>("");
   const budget = useCreateEventStore((state) => state.budget);
   const addBudget = useCreateEventStore((state) => state.addBudget);
@@ -36,6 +36,7 @@ export const RequestForm: React.FC<RequestsProps> = ({ msg }) => {
         onSubmit={(e) => {
           e.preventDefault();
           console.log("Submitted");
+
           if (title !== "" && amount !== 0 && reason !== "") {
             addBudget({ title, amount, reason });
             setTitle("");
@@ -62,7 +63,7 @@ export const RequestForm: React.FC<RequestsProps> = ({ msg }) => {
               type="number"
               placeholder="99"
               value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
+              onChange={(e) => setAmount(e.target.value)}
             />
           </FormControl>
         </HStack>

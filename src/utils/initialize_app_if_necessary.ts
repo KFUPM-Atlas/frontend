@@ -1,4 +1,5 @@
 import { initializeApp, getApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
 
 export const initializeAppIfNecessary = () => {
   const firebaseConfig = {
@@ -16,3 +17,4 @@ export const initializeAppIfNecessary = () => {
     return initializeApp(firebaseConfig);
   }
 };
+export const storage = getStorage(initializeAppIfNecessary());
