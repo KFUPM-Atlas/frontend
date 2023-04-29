@@ -32,16 +32,19 @@ export const ClubProfile: React.FC = () => {
   const { documents: club } = useCollection("clubs", args);
   const [file, setFile] = useState<any>(""); // progress
   const [percent, setPercent] = useState(0); // Handle file upload event and update state
+  const [temp, setTemp] = useState(0);
   function handleChange(event) {
     setFile(event.target.files[0]);
-    handleUpload();
+    handleUpload(event.target.files[0]);
   }
-  const handleUpload = () => {
-    if (!file) {
+  const handleUpload = (f: any) => {
+    console.log("file: ", f);
+    if (!f) {
       alert("Please upload an image first!");
+      return;
     }
     const storageRef = ref(storage, `/files/${id}`); // progress can be paused and resumed. It also exposes progress updates. // Receives the storage reference and the file to upload.
-    const uploadTask = uploadBytesResumable(storageRef, file as any);
+    const uploadTask = uploadBytesResumable(storageRef, f as any);
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -54,6 +57,7 @@ export const ClubProfile: React.FC = () => {
       () => {
         // download url
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setTemp(Math.random());
           console.log(url);
         });
       }
@@ -84,10 +88,10 @@ export const ClubProfile: React.FC = () => {
           <Box mt={10}>
             <Center>
               <Image
-                src={`https://firebasestorage.googleapis.com/v0/b/atlas-5fb14.appspot.com/o/files%2FzLO183cTJgfdJ2qikwzP?alt=media&token=20cb9bd7-8af6-4534-bf30-e23c390d0882`}
+                src={`https://firebasestorage.googleapis.com/v0/b/atlas-5fb14.appspot.com/o/files%2F${id}?alt=media&token=20cb9bd7-8af6-4534-bf30-e23c390d0882&temp=${temp}`}
                 alt="Google Logo"
-                w={10}
-                h={5}
+                w={200}
+                h={100}
               />
             </Center>
             <Stack direction={"column"} spacing={5}>
@@ -118,19 +122,10 @@ export const ClubProfile: React.FC = () => {
               </Text>
             </Stack>
             <Stack direction={"column"} spacing={5} mt={10}>
-              <Text fontSize={"2xl"}>Club Objective</Text>
+              <Text fontSize={"2xl"}>Club Description</Text>
               <Text fontSize={"lg"} color={"gray.500"}>
-                This will represent your club's goal
+                <Stack>{club?.[0].description}</Stack>
               </Text>
-              <Stack>
-                {club?.[0].objectives?.map((e, i) => {
-                  return (
-                    <Text>
-                      {i + 1}- {e}
-                    </Text>
-                  );
-                })}
-              </Stack>
             </Stack>
             <Stack direction={"column"} spacing={5} mt={10}>
               <Text fontSize={"2xl"}>Club Members</Text>

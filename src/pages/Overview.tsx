@@ -1,12 +1,24 @@
 import {
   Box,
+  Button,
   Center,
   Flex,
   Heading,
+  HStack,
   Image,
+  Link,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Spacer,
   Stack,
   Table,
   TableContainer,
+  Tag,
   Tbody,
   Td,
   Text,
@@ -22,6 +34,7 @@ import { Sidebar } from "../components/Sidebar";
 import { Stat } from "../components/Stat";
 import { EventStatus } from "../enums/event_status";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useClubName } from "../hooks/useClub";
 import { useCollection } from "../hooks/useCollection";
 import { mapEventStatusToColor } from "../utils/map_event_status_to_color";
 import { randomArr } from "../utils/random_arr";
@@ -33,7 +46,8 @@ export const Overview: React.FC = () => {
   const { documents: followers } = useCollection("followers", args);
   const { documents: events } = useCollection("events", args);
   const { documents: requests } = useCollection("requests", args);
-
+  const name = useClubName(id);
+  console.log(name);
   return (
     <Box minH="100vh">
       <Sidebar onClose={onClose} isOpen={isOpen} onOpen={onOpen} />
@@ -55,14 +69,14 @@ export const Overview: React.FC = () => {
           >
             <Center>
               <Image
-                src="https://seeklogo.com/images/G/google-developers-logo-F8BF3155AC-seeklogo.com.png"
+                src={`https://firebasestorage.googleapis.com/v0/b/atlas-5fb14.appspot.com/o/files%2F${id}?alt=media&token=20cb9bd7-8af6-4534-bf30-e23c390d0882&`}
                 alt="Google Logo"
-                w={10}
-                h={5}
+                w={200}
+                h={100}
               />
             </Center>
             <Center>
-              <Heading>Google Developer Student Club</Heading>
+              <Heading>{name?.name}</Heading>
             </Center>
           </Stack>
           <Flex
@@ -103,37 +117,55 @@ export const Overview: React.FC = () => {
                 <Thead>
                   <Tr>
                     <Th>Event</Th>
-                    <Th>Type</Th>
-                    <Th>Date</Th>
+                    <Th>Description</Th>
+                    <Th>Start Date</Th>
+                    <Th>End Date</Th>
+                    <Th>Tag</Th>
                     <Th>Status</Th>
-                    <Th>Action</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {Array(3)
-                    .fill(0)
-                    .map((_, i) => {
-                      const status = randomArr([
-                        "pending",
-                        "approved",
-                        "rejected",
-                      ]);
-                      return (
-                        <Tr key={i}>
-                          <Td>Event-{i}</Td>
-                          <Td>Type-1</Td>
-                          <Td>{new Date().toLocaleString()}</Td>
-                          <Td
-                            color={mapEventStatusToColor(status as EventStatus)}
-                          >
-                            {status}
-                          </Td>
-                          <Td>
-                            <BsThreeDots size={30} />
-                          </Td>
-                        </Tr>
-                      );
-                    })}
+                  {events?.map((event, i) => {
+                    return (
+                      <Tr key={i}>
+                        <Td>{event.title}</Td>
+                        <Td>{event.description}</Td>
+                        <Td>
+                          {new Date(event.startDate).toDateString() as any}-{" "}
+                          {
+                            new Date(
+                              event.startDate
+                            ).toLocaleTimeString() as any
+                          }
+                        </Td>
+                        <Td>
+                          {new Date(event.endDate).toDateString() as any}-{" "}
+                          {new Date(event.endDate).toLocaleTimeString() as any}
+                        </Td>
+
+                        <Td>
+                          <Link isExternal={true} href={event.posterLink}>
+                            Poster Link
+                          </Link>
+                        </Td>
+                        <Td>
+                          <span>
+                            {event.building} - {event.room}
+                          </span>
+                        </Td>
+                        <Td
+                          color={mapEventStatusToColor(
+                            event.status as EventStatus
+                          )}
+                        >
+                          {event.status || "Pending"}
+                        </Td>
+                        <Td>
+                          <Tag>{event.tag}</Tag>
+                        </Td>
+                      </Tr>
+                    );
+                  })}
                 </Tbody>
               </Table>
             </TableContainer>
@@ -146,38 +178,37 @@ export const Overview: React.FC = () => {
               <Table variant="simple">
                 <Thead>
                   <Tr>
-                    <Th>Event</Th>
                     <Th>Type</Th>
-                    <Th>Date</Th>
                     <Th>Status</Th>
-                    <Th>Action</Th>
+                    <Th>Link</Th>
+                    <Th>Type</Th>
+                    <Th>Request Date</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {Array(3)
-                    .fill(0)
-                    .map((_, i) => {
-                      const status = randomArr([
-                        "pending",
-                        "approved",
-                        "rejected",
-                      ]);
-                      return (
-                        <Tr key={i}>
-                          <Td>Event-{i}</Td>
-                          <Td>Type-1</Td>
-                          <Td>{new Date().toLocaleString()}</Td>
-                          <Td
-                            color={mapEventStatusToColor(status as EventStatus)}
-                          >
-                            {status}
-                          </Td>
-                          <Td>
-                            <BsThreeDots size={30} />
-                          </Td>
-                        </Tr>
-                      );
-                    })}
+                  {requests?.map((event, i) => {
+                    return (
+                      <Tr key={i}>
+                        <Td>{event.type}</Td>
+                        <Td color={mapEventStatusToColor(event.status)}>
+                          {event.status}
+                        </Td>
+                        <Td>
+                          <Link href={event.documentUrl} isExternal={true}>
+                            Link to the request
+                          </Link>
+                        </Td>
+                        <Td>{event.type}</Td>
+                        <Td>
+                          {
+                            new Date(
+                              event.createdAt?.seconds * 1000
+                            ).toLocaleDateString() as any
+                          }
+                        </Td>
+                      </Tr>
+                    );
+                  })}
                 </Tbody>
               </Table>
             </TableContainer>

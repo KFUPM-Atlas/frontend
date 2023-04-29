@@ -2,6 +2,7 @@ import {
   Box,
   useDisclosure,
   Flex,
+  Text,
   Heading,
   Button,
   TableContainer,
@@ -19,6 +20,17 @@ import {
   ModalHeader,
   ModalOverlay,
   Tag,
+  Link,
+  LinkBox,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  HStack,
+  Spacer,
 } from "@chakra-ui/react";
 import { CreateEvent } from "../components/create_event/CreateEvent";
 import { Sidebar } from "../components/Sidebar";
@@ -45,7 +57,11 @@ export const TableData: React.FC<TableDataProps> = ({ data, type }) => {
           <Tr>
             {type === "request" ? (
               <>
+                <Th>Sender</Th>
+                <Th>Status</Th>
+                <Th>Link</Th>
                 <Th>Type</Th>
+                <Th>Request Date</Th>
               </>
             ) : (
               <>
@@ -53,8 +69,10 @@ export const TableData: React.FC<TableDataProps> = ({ data, type }) => {
                 <Th>Description</Th>
                 <Th>Start Date</Th>
                 <Th>End Date</Th>
-                <Th>Tag</Th>
+                <Th>Poster</Th>
+                <Th>Location</Th>
                 <Th>Status</Th>
+                <Th>Tag</Th>
               </>
             )}
           </Tr>
@@ -63,38 +81,53 @@ export const TableData: React.FC<TableDataProps> = ({ data, type }) => {
           {data?.map((event, i) => {
             return type === "request" ? (
               <Tr key={i}>
+                <Td>{event.sender}</Td>
+                <Td color={mapEventStatusToColor(event.status)}>
+                  {event.status}
+                </Td>
+                <Td>
+                  <Link href={event.documentUrl} isExternal={true}>
+                    Link to the request
+                  </Link>
+                </Td>
                 <Td>{event.type}</Td>
+                <Td>
+                  {
+                    new Date(
+                      event.createdAt?.seconds * 1000
+                    ).toLocaleDateString() as any
+                  }
+                </Td>
               </Tr>
             ) : (
               <Tr key={i}>
-                <Td>{event.eventName}</Td>
+                <Td>{event.title}</Td>
                 <Td>{event.description}</Td>
                 <Td>
-                  {
-                    new Date(
-                      event.startDate?.seconds * 1000
-                    ).toLocaleDateString() as any
-                  }
+                  {new Date(event.startDate).toDateString() as any}-{" "}
+                  {new Date(event.startDate).toLocaleTimeString() as any}
                 </Td>
                 <Td>
-                  {
-                    new Date(
-                      event.endDate?.seconds * 1000
-                    ).toLocaleDateString() as any
-                  }
+                  {new Date(event.endDate).toDateString() as any}-{" "}
+                  {new Date(event.endDate).toLocaleTimeString() as any}
                 </Td>
 
                 <Td>
-                  <Tag>{event.tag}</Tag>
+                  <Link isExternal={true} href={event.posterLink}>
+                    Poster Link
+                  </Link>
+                </Td>
+                <Td>
+                  <span>
+                    {event.building} - {event.room}
+                  </span>
                 </Td>
                 <Td color={mapEventStatusToColor(event.status as EventStatus)}>
                   {event.status || "Pending"}
                 </Td>
-                {/* <Td>
-                  <Button bg={"black"} color={"white"} onClick={onOpenModal}>
-                    View
-                  </Button>
-                </Td> */}
+                <Td>
+                  <Tag>{event.tag}</Tag>
+                </Td>
               </Tr>
             );
           })}
