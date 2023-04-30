@@ -12,23 +12,17 @@ import {
   Text,
   AvatarGroup,
   Avatar,
-  Link,
   Icon,
 } from "@chakra-ui/react";
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import { MobileNavbar } from "../components/MobileNavbar";
 import { Overview } from "../components/Overview";
 import { TabElement } from "../components/TabElement";
 import { COLORS } from "../core/constants";
 import { BsArrowRight } from "react-icons/bs";
-import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useFetchEvent } from "../hooks/useFetchEvent";
 import { useFirestoreRegistrations } from "../hooks/useFirestoreRegistrations";
-import { useEffect } from "react";
 import { useCheckRegistration } from "../hooks/useCheckRegistration";
-import { AiOutlineLeftCircle } from "react-icons/ai";
 import { FiChevronLeft } from "react-icons/fi";
 export const EventPage: React.FC = () => {
   const { slug } = useParams();
@@ -37,7 +31,6 @@ export const EventPage: React.FC = () => {
   const { event } = useFetchEvent(slug);
   const { createRegistration } = useFirestoreRegistrations();
   const { hasRegistration, loading } = useCheckRegistration(slug, user?.uid);
-  console.log(hasRegistration);
   return (
     <>
       {event && (
@@ -48,7 +41,7 @@ export const EventPage: React.FC = () => {
         >
           <Box position="relative">
             <Image
-              src={event.posterUrl}
+              src={event.posterLink}
               objectFit="cover"
               boxShadow="md"
               minH="60vh"
@@ -88,7 +81,7 @@ export const EventPage: React.FC = () => {
           <Box minH="40vh" w={{ base: "100%", lg: "50%" }} boxShadow="lg" p={8}>
             <HStack justifyContent="space-between">
               <Heading size="lg" color={COLORS.PRIMARY}>
-                {event?.eventName}
+                {event?.title}
               </Heading>
               <AvatarGroup size="sm" max={2}>
                 <Avatar
@@ -128,7 +121,7 @@ export const EventPage: React.FC = () => {
                     bgGradient="linear(to-l, gray.600, gray.900)"
                     color="white"
                     p={8}
-                    onClick={() => createRegistration(user.uid, event.slug)}
+                    onClick={() => createRegistration(user.uid, event.eventId)}
                     _focus={{ bgGradient: "linear(to-l, gray.600, gray.900)" }}
                   >
                     <HStack justifyContent="space-between">

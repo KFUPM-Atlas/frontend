@@ -18,18 +18,32 @@ interface EventBoxProps {
 
 export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
   const navigate = useNavigate();
-  const startDate = new Date(event?.startDate * 1000);
-  const endDate = new Date(event?.endDate * 1000);
+  const startDate = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  }).format(new Date(event?.startDate));
+
+  const endDate = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  }).format(new Date(event?.endDate));
+
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+  }).format(new Date(event?.startDate));
 
   return (
     <Box
       pt={4}
       position="relative"
-      onClick={() => navigate(`/event/${event?.slug}`)}
+      onClick={() => navigate(`/event/${event?.eventId}`)}
       minWidth="308px" // add a minWidth property to adjust the size of the box
     >
       <Image
-        src={event.posterUrl}
+        src={event?.posterLink}
         w={"full"}
         h={200}
         objectFit="cover"
@@ -63,13 +77,13 @@ export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
           <Stack py={3}>
             <HStack justifyContent="space-between">
               <Text fontWeight="medium" fontSize={13}>
-                {event?.eventName}
+                {event?.title}
               </Text>
             </HStack>
             <HStack>
               <Image src="./gdsc.jpeg" w={5} h={5} objectFit="cover" />
               <Text fontWeight="normal" fontSize={8}>
-                {event?.club}
+                {event?.club?.name}
               </Text>
             </HStack>
           </Stack>
@@ -77,22 +91,13 @@ export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
             <HStack color="gray.400">
               <Icon as={BiTimeFive} w={3} h={3} />
               <Text fontWeight="medium" fontSize={8}>
-                {startDate?.toLocaleString("en-US", {
-                  hour: "numeric",
-                  hour12: true,
-                })}
-                -
-                {endDate?.toLocaleString("en-US", {
-                  hour: "numeric",
-                  hour12: true,
-                })}
+                {startDate}-{endDate}
               </Text>
             </HStack>
             <HStack color="gray.400">
               <Icon as={AiOutlineCalendar} w={3} h={3} />
               <Text fontWeight="medium" fontSize={10}>
-                {startDate?.getDate()}{" "}
-                {startDate?.toLocaleString("default", { month: "short" })}
+                {formattedDate}
               </Text>
             </HStack>
           </Stack>

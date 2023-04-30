@@ -9,7 +9,7 @@ export const useFetchEvent = (slug: string) => {
   const [error, setError] = useState<string>("");
 
   const fetchEvent = async () => {
-    const q = query(collection(db, "events"), where("slug", "==", slug));
+    const q = query(collection(db, "events"), where("eventId", "==", slug));
     setLoading(true);
     const unsub = onSnapshot(q, (snapshot) => {
       let results = [];
