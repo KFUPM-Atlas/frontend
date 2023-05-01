@@ -20,8 +20,9 @@ import { EventStatus } from "../enums/event_status";
 import { useCollection } from "../hooks/useCollection";
 import { mapEventStatusToColor } from "../utils/map_event_status_to_color";
 import { randomArr } from "../utils/random_arr";
+import { WithPresidentCheck } from "../components/WithPresidentCheck";
 
-export const Events: React.FC = () => {
+const Events: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenModal,
@@ -60,3 +61,5 @@ export const Events: React.FC = () => {
     </Box>
   );
 };
+
+export default WithPresidentCheck(Events);
