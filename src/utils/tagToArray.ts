@@ -4,17 +4,17 @@ export const getTagNames = (tagObjects): string[] => {
 
     // Modify the string based on the tag
     switch (tagString) {
-      case "Business":
-        tagString = "🧳 Business";
+      case "Engineering":
+        tagString = "Engineering";
         break;
       case "Entertainment":
-        tagString = "🚀 Entertainment";
+        tagString = "Entertainment";
         break;
       case "Tech":
-        tagString = "💻 Tech";
+        tagString = "Tech";
         break;
       case "Other":
-        tagString = "💡 Other";
+        tagString = "Other";
       default:
         break;
     }
