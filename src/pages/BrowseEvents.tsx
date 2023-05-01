@@ -9,6 +9,10 @@ import {
   Heading,
   AvatarBadge,
   Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
 } from "@chakra-ui/react";
 import { EventList } from "../components/EventList";
 import { COLORS } from "../core/constants";
@@ -20,6 +24,7 @@ import { MobileNavbar } from "../components/MobileNavbar";
 import { HorizontalEventList } from "../components/HorizontalEventList";
 import { useCollection } from "../hooks/useCollection";
 import { getTagNames } from "../utils/tagToArray";
+import { useFetchUserClubs } from "../hooks/useFetchUserClubs";
 export const BrowseEvents: React.FC = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
@@ -28,6 +33,8 @@ export const BrowseEvents: React.FC = () => {
     "==",
     user?.uid,
   ]);
+
+  const { clubs } = useFetchUserClubs(user?.uid);
 
   const { documents: tags } = useCollection("tags", []);
 
@@ -59,14 +66,42 @@ export const BrowseEvents: React.FC = () => {
             )}
 
             {user && userProfile && (
-              <Stack direction="row" spacing={4}>
-                <Avatar
-                  name={userProfile[0]?.name}
-                  src={userProfile[0]?.profilePictureUrl}
-                >
-                  <AvatarBadge boxSize="1em" bg="green.500" />
-                </Avatar>
-              </Stack>
+              <>
+                {clubs.length >= 1 ? (
+                  <HStack justifyContent="space-between">
+                    <Menu>
+                      <MenuButton
+                        as={Button}
+                        bgGradient="linear(to-l, gray.600, gray.900)"
+                        color="white"
+                      >
+                        Clubs
+                      </MenuButton>
+                      <MenuList>
+                        {clubs.map((club) => (
+                          <MenuItem
+                            onClick={() =>
+                              navigate(`/club/${club.clubId}/overview`)
+                            }
+                          >
+                            {club.name}
+                          </MenuItem>
+                        ))}
+                      </MenuList>
+                    </Menu>
+                  </HStack>
+                ) : (
+                  <Stack direction="row" spacing={4}>
+                    <Avatar
+                      name={userProfile[0]?.name}
+                      src={userProfile[0]?.profilePictureUrl}
+                      boxShadow="xl"
+                    >
+                      <AvatarBadge boxSize="1em" bg="green.500" />
+                    </Avatar>
+                  </Stack>
+                )}
+              </>
             )}
             {!user && (
               <>
@@ -95,17 +130,11 @@ export const BrowseEvents: React.FC = () => {
           {tags && <CategoryPick categories={getTagNames(tags)} />}
           <HStack justifyContent="space-between" pt={0}>
             <Text fontWeight="bold">Events for you</Text>
-            <Text fontWeight="medium" color={COLORS.TEXT_LIGHT}>
-              See more
-            </Text>
           </HStack>
           <HorizontalEventList />
 
           <HStack justifyContent="space-between" pt={4}>
             <Text fontWeight="bold">Popular Events</Text>
-            <Text color={COLORS.TEXT_LIGHT} fontWeight="medium">
-              See more
-            </Text>
           </HStack>
           <EventList />
         </Container>
