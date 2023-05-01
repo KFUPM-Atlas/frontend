@@ -7,7 +7,6 @@ export const useFetchUserEvents = (eventSlugs: string[]) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-  console.log(eventSlugs);
 
   const fetchEvents = async () => {
     setLoading(true);
@@ -15,7 +14,7 @@ export const useFetchUserEvents = (eventSlugs: string[]) => {
     for (let current = 0; current < eventSlugs.length; current++) {
       const q = query(
         collection(db, "events"),
-        where("slug", "==", eventSlugs[current])
+        where("eventId", "==", eventSlugs[current])
       );
       promises.push(getDocs(q));
     }
