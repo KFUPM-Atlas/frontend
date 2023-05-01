@@ -4,10 +4,15 @@ import { TabsList } from "./TabsList";
 import { EventBox } from "./EventBox";
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import { useFetchEvents } from "../hooks/useFetchEvents";
+import { getFilteredEvents } from "../utils/return_filtered_events";
+import { useFiltersStore } from "../stores/useFiltersStore";
 interface HorizontalEventListProps {}
 
 export const HorizontalEventList: React.FC<HorizontalEventListProps> = ({}) => {
   const { events } = useFetchEvents();
+  const { filter, search } = useFiltersStore();
+  const filteredEvents = getFilteredEvents(events, filter, search);
+
   return (
     <div style={{ overflowX: "hidden", position: "relative" }}>
       <HStack
@@ -25,7 +30,7 @@ export const HorizontalEventList: React.FC<HorizontalEventListProps> = ({}) => {
           },
         }}
       >
-        {events?.map((event, index) => (
+        {filteredEvents?.map((event, index) => (
           <Tag
             flexShrink="0"
             bgColor="white"
