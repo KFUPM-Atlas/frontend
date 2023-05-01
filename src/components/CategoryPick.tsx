@@ -12,11 +12,18 @@ import { TabsList } from "./TabsList";
 import { EventBox } from "./EventBox";
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import { COLORS } from "../core/constants";
+import { useEffect, useState } from "react";
+import { useFiltersStore } from "../stores/useFiltersStore";
 interface EventListProps {
   categories: string[];
 }
 
 export const CategoryPick: React.FC<EventListProps> = ({ categories }) => {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const { setFilter } = useFiltersStore();
+  useEffect(() => {
+    setFilter(selectedCategory);
+  }, [selectedCategory]);
   return (
     <div style={{ overflowX: "hidden", position: "relative" }}>
       <HStack
@@ -38,7 +45,11 @@ export const CategoryPick: React.FC<EventListProps> = ({ categories }) => {
         {categories.map((data, index) => (
           <Tag
             flexShrink="0"
-            bgColor="white"
+            bgGradient={
+              selectedCategory == data
+                ? "linear(to-l, gray.600, gray.900)"
+                : "linear(to-l, gray.100, gray.100)"
+            }
             size="md"
             key={index}
             borderRadius={"full"}
@@ -47,8 +58,17 @@ export const CategoryPick: React.FC<EventListProps> = ({ categories }) => {
             boxShadow="sm"
             border="1px"
             borderColor="gray.100"
+            onClick={() =>
+              selectedCategory == data
+                ? setSelectedCategory("")
+                : setSelectedCategory(data)
+            }
           >
-            <TagLabel color={COLORS.PRIMARY}>{data}</TagLabel>
+            <TagLabel
+              color={selectedCategory == data ? "white" : COLORS.PRIMARY}
+            >
+              {data}
+            </TagLabel>
           </Tag>
         ))}
       </HStack>
