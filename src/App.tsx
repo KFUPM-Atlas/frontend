@@ -4,13 +4,13 @@ import { Box, useMediaQuery } from "@chakra-ui/react";
 import { Register } from "./pages/Register";
 import { EventPage } from "./pages/EventPage";
 import { BrowseEvents } from "./pages/BrowseEvents";
-import { Events } from "./pages/Event";
+import Events from "./pages/Event";
 import { Explore } from "./pages/Explore";
 import { ClubPage } from "./pages/ClubPage";
 import { Tickets } from "./pages/Tickets";
-import { Overview } from "./pages/Overview";
-import { Requests } from "./pages/Requests";
-import { ClubProfile } from "./pages/ClubProfile";
+import Overview from "./pages/Overview";
+import Requests from "./pages/Requests";
+import ClubProfile from "./pages/ClubProfile";
 import { NotSupported } from "./components/NotSupported";
 
 export const App: React.FC = () => {
