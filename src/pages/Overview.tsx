@@ -32,13 +32,14 @@ import { IoPeopleOutline, IoSend } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
 import { Stat } from "../components/Stat";
+import { WithPresidentCheck } from "../components/WithPresidentCheck";
 import { EventStatus } from "../enums/event_status";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useClubName } from "../hooks/useClub";
 import { useCollection } from "../hooks/useCollection";
 import { mapEventStatusToColor } from "../utils/map_event_status_to_color";
 import { randomArr } from "../utils/random_arr";
-export const Overview: React.FC = () => {
+const Overview: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useAuthContext();
   const { id } = useParams();
@@ -218,3 +219,5 @@ export const Overview: React.FC = () => {
     </Box>
   );
 };
+
+export default WithPresidentCheck(Overview);
