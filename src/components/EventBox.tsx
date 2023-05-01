@@ -12,12 +12,15 @@ import { COLORS } from "../core/constants";
 import { BiTimeFive } from "react-icons/bi";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { useFetchEventRegistrations } from "../hooks/useFetchEventRegistrations";
+import { Avatars } from "./Avatars";
 interface EventBoxProps {
   event: any;
 }
 
 export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
   const navigate = useNavigate();
+  const { registrations } = useFetchEventRegistrations(event.eventId);
   const startDate = new Intl.DateTimeFormat("en-US", {
     hour: "numeric",
     minute: "numeric",
@@ -50,15 +53,9 @@ export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
         borderRadius="lg"
         boxShadow="lg"
       />
-      <Box position="absolute" top={7} color={COLORS.PRIMARY} left={5} p={2}>
-        <AvatarGroup size="xs" max={3}>
-          <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence" />
-          <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
-          <Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
-          <Avatar name="Prosper Otemuyiwa" src="https://bit.ly/prosper-baba" />
-          <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
-        </AvatarGroup>
-      </Box>
+      {registrations.length >= 1 && (
+        <Avatars registrations={registrations} type="eventBox" size="sm" />
+      )}
       <Box
         position="absolute"
         bottom={5}
@@ -81,7 +78,7 @@ export const EventBox: React.FC<EventBoxProps> = ({ event }) => {
               </Text>
             </HStack>
             <HStack>
-              <Image src="./gdsc.jpeg" w={5} h={5} objectFit="cover" />
+              <Image src={event?.club.logoUrl} w={5} h={5} objectFit="cover" />
               <Text fontWeight="normal" fontSize={8}>
                 {event?.club?.name}
               </Text>
