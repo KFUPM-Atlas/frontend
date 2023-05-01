@@ -1,8 +1,8 @@
 export const returnPastEvents = (arr) => {
-  const currentDate = Math.floor(Date.now() / 1000);
-  const pastEvents = arr.filter(
-    (event) => event.startDate.seconds < currentDate
-  );
+  const dateObj = new Date();
+  const dateString = dateObj.toISOString().slice(0, 16);
+
+  const pastEvents = arr.filter((event) => event?.startDate < dateString);
 
   return pastEvents;
 };

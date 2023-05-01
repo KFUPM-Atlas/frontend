@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { db } from "../core/firebase";
-import { collection, query, onSnapshot } from "@firebase/firestore";
+import { collection, query, onSnapshot, where } from "@firebase/firestore";
 
 export const useFetchClubs = () => {
   const [clubs, setClubs] = useState([]);
@@ -9,7 +9,7 @@ export const useFetchClubs = () => {
   const [error, setError] = useState<string>("");
 
   const fetchClubs = async () => {
-    const q = query(collection(db, "clubs"));
+    const q = query(collection(db, "clubs"), where("isDeleted", "==", false));
     setLoading(true);
     const unsub = onSnapshot(q, (snapshot) => {
       let results = [];

@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { COLORS } from "../core/constants";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 interface ClubBoxProps {
   club: any;
@@ -16,14 +17,15 @@ interface ClubBoxProps {
 
 export const ClubOverviewBox: React.FC<ClubBoxProps> = ({ club }) => {
   const navigate = useNavigate();
+  const { user } = useAuthContext();
 
   return (
-    <Box pt={3} onClick={() => navigate(`/club/${club?.clubId}`)}>
+    <Box pt={3}>
       <Box boxShadow="lg" bgColor="white" borderRadius={10}>
         <HStack justifyContent="space-between">
           <Box p={5}>
             <Image
-              src="/gdsc.jpeg"
+              src={club?.logoUrl}
               w={20}
               h={20}
               objectFit="cover"
@@ -47,8 +49,11 @@ export const ClubOverviewBox: React.FC<ClubBoxProps> = ({ club }) => {
               color="white"
               px={5}
               borderRadius="lg"
+              onClick={() =>
+                user ? navigate(`/club/${club?.clubId}`) : navigate(`/login`)
+              }
             >
-              <Text>View</Text>
+              <Text>{user ? "View" : "Login To View"}</Text>
             </Button>
           </Stack>
         </HStack>

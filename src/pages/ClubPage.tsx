@@ -20,28 +20,31 @@ import { useFetchClub } from "../hooks/useFetchClub";
 import { useFirestoreFollowers } from "../hooks/useFirestoreFollowers";
 import { useCheckFollow } from "../hooks/useCheckFollow";
 import { FollowButton } from "../components/FollowButton";
+import { useCollection } from "../hooks/useCollection";
 
 export const ClubPage: React.FC = () => {
   const { id } = useParams();
   const { club } = useFetchClub(id);
   const { user } = useAuthContext();
+  const args = ["clubId", "==", id];
+  const { documents: followers } = useCollection("followers", args);
 
   return (
     <>
-      {club.id && user && (
+      {club.id && user && followers && (
         <>
           <Box minH="100vh">
             <Container maxW="container.lg">
               <Center pt={10}>
                 <Wrap>
                   <WrapItem>
-                    <Avatar size="xl" src="/gdsc.jpeg" />
+                    <Avatar size="xl" src={club.logoUrl} />
                   </WrapItem>
                 </Wrap>
               </Center>
               <Stack spacing={3}>
                 <Text color={COLORS.TEXT_LIGHT} textAlign="center">
-                  {club?.followers} Followers
+                  {followers.length} Followers
                 </Text>
                 <Center>
                   <FollowButton club={club} />

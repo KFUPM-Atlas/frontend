@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { db } from "../core/firebase";
 import { collection, query, onSnapshot } from "@firebase/firestore";
+import { where } from "firebase/firestore";
 
 export const useFetchEvents = () => {
   const [events, setEvents] = useState([]);
@@ -9,7 +10,7 @@ export const useFetchEvents = () => {
   const [error, setError] = useState<string>("");
 
   const fetchEvents = async () => {
-    const q = query(collection(db, "events"));
+    const q = query(collection(db, "events"), where("isDeleted", "==", false));
     setLoading(true);
     const unsub = onSnapshot(q, (snapshot) => {
       let results = [];

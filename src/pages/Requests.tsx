@@ -25,6 +25,7 @@ import { useParams } from "react-router-dom";
 import { Lines } from "../components/create_event/Lines";
 import { Sidebar } from "../components/Sidebar";
 import { TableData } from "../components/TableData";
+import { WithPresidentCheck } from "../components/WithPresidentCheck";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useCollection } from "../hooks/useCollection";
 import { useUser } from "../hooks/useUser";
@@ -51,7 +52,7 @@ export const CustomBtn: React.FC<CustomBtnProps> = ({
     </Button>
   );
 };
-export const Requests: React.FC = () => {
+const Requests: React.FC = () => {
   const [tab, setTab] = useState<
     "Budget" | "Custody" | "Settlement" | "Announcement"
   >("Budget");
@@ -296,3 +297,4 @@ export const Requests: React.FC = () => {
     </Box>
   );
 };
+export default WithPresidentCheck(Requests);

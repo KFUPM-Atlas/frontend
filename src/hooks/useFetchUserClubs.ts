@@ -3,20 +3,24 @@ import { toast } from "react-hot-toast";
 import { db } from "../core/firebase";
 import { collection, query, onSnapshot, where } from "@firebase/firestore";
 
-export const useFetchEvent = (slug: string) => {
-  const [event, setEvent] = useState<any>([]);
+export const useFetchUserClubs = (uid: string) => {
+  const [clubs, setClubs] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
-  const fetchEvent = async () => {
-    const q = query(collection(db, "events"), where("eventId", "==", slug));
+  const fetchUserClubs = async () => {
+    const q = query(
+      collection(db, "clubs"),
+      where("isDeleted", "==", false),
+      where("presidentUid", "==", uid)
+    );
     setLoading(true);
     const unsub = onSnapshot(q, (snapshot) => {
       let results = [];
       snapshot.docs.forEach((doc) => {
         results.push({ ...doc?.data(), id: doc?.id });
       });
-      setEvent(results[0]);
+      setClubs(results);
     });
     setLoading(false);
     return () => unsub();
@@ -24,11 +28,11 @@ export const useFetchEvent = (slug: string) => {
 
   useEffect(() => {
     try {
-      fetchEvent();
+      fetchUserClubs();
     } catch (err) {
       toast.error(err.message);
       setError(err.message);
     }
   }, []);
-  return { event, loading, error };
+  return { clubs, loading, error };
 };

@@ -8,12 +8,11 @@ interface TicketBoxProps {
 
 export const TicketBox: React.FC<TicketBoxProps> = ({ event }) => {
   const navigate = useNavigate();
-
   return (
     <Box>
       <Stack bgColor={"white"} p={10} boxShadow="lg" borderRadius={10}>
         <Text fontSize={20} fontWeight="bold">
-          {event?.eventName}
+          {event?.title}
         </Text>
         <Text fontSize={15} color={COLORS.TEXT_LIGHT}>
           {event?.description}
@@ -22,11 +21,8 @@ export const TicketBox: React.FC<TicketBoxProps> = ({ event }) => {
         <Text fontSize={20} fontWeight="bold" pt={4}>
           {event?.location}
         </Text>
-        <Text fontSize={15} color={COLORS.TEXT_LIGHT} pb={5}>
-          Event Location
-        </Text>
         <Image
-          src="./laptop.svg"
+          src={event?.posterLink}
           w={"full"}
           h={200}
           objectFit="cover"
@@ -45,7 +41,7 @@ export const TicketBox: React.FC<TicketBoxProps> = ({ event }) => {
             border={"1px"}
             borderColor="gray.300"
             leftIcon={<AiOutlineExpand />}
-            onClick={() => navigate(`/event/${event?.slug}`)}
+            onClick={() => navigate(`/event/${event?.eventId}`)}
           >
             Details
           </Button>

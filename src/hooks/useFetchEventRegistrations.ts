@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { db } from "../core/firebase";
-import { collection, query, onSnapshot, where } from "@firebase/firestore";
+import { collection, query, onSnapshot } from "@firebase/firestore";
+import { where } from "firebase/firestore";
 
-export const useFetchEvent = (slug: string) => {
-  const [event, setEvent] = useState<any>([]);
+export const useFetchEventRegistrations = (eventSlug: string) => {
+  const [registrations, setRegistrations] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
-  const fetchEvent = async () => {
-    const q = query(collection(db, "events"), where("eventId", "==", slug));
+  const fetchRegistrations = async () => {
+    const q = query(
+      collection(db, "registrations"),
+      where("eventSlug", "==", eventSlug)
+    );
     setLoading(true);
     const unsub = onSnapshot(q, (snapshot) => {
       let results = [];
       snapshot.docs.forEach((doc) => {
         results.push({ ...doc?.data(), id: doc?.id });
       });
-      setEvent(results[0]);
+      setRegistrations(results);
     });
     setLoading(false);
     return () => unsub();
@@ -24,11 +28,11 @@ export const useFetchEvent = (slug: string) => {
 
   useEffect(() => {
     try {
-      fetchEvent();
+      fetchRegistrations();
     } catch (err) {
       toast.error(err.message);
       setError(err.message);
     }
   }, []);
-  return { event, loading, error };
+  return { registrations, loading, error };
 };

@@ -10,7 +10,6 @@ import { useAuthContext } from "../hooks/useAuthContext";
 export const Tickets: React.FC = () => {
   const { user } = useAuthContext();
   const { registrations } = useFetchRegistrations(user?.uid);
-  console.log(registrations);
   const eventIds = returnSlugs(registrations);
 
   return (

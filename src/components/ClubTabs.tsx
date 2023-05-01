@@ -50,7 +50,7 @@ export const ClubTabs: React.FC<TabsProps> = ({}) => {
                 <GridItem colSpan={{ base: 2, lg: 1 }} key={index}>
                   <EventOverviewBox event={event} />
                 </GridItem>
-              ))}{" "}
+              ))}
           </SimpleGrid>
         </TabPanel>
         <TabPanel p={0}>
@@ -67,7 +67,7 @@ export const ClubTabs: React.FC<TabsProps> = ({}) => {
                 ))}
               </>
             )}
-          </SimpleGrid>{" "}
+          </SimpleGrid>
         </TabPanel>
         <TabPanel>
           <ClubAbout />

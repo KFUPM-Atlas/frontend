@@ -16,10 +16,11 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Sidebar } from "../components/Sidebar";
+import { WithPresidentCheck } from "../components/WithPresidentCheck";
 import { useCollection } from "../hooks/useCollection";
 import { storage } from "../utils/initialize_app_if_necessary";
 
-export const ClubProfile: React.FC = () => {
+const ClubProfile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenModal,
@@ -148,3 +149,5 @@ export const ClubProfile: React.FC = () => {
     </Box>
   );
 };
+
+export default WithPresidentCheck(ClubProfile);

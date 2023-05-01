@@ -20,15 +20,18 @@ interface EventBoxProps {
 
 export const EventOverviewBox: React.FC<EventBoxProps> = ({ event }) => {
   const navigate = useNavigate();
-  const startDate = new Date(event?.startDate * 1000);
+  const startDate = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+  }).format(new Date(event?.startDate));
 
   return (
-    <Box pt={3} onClick={() => navigate(`/event/${event?.slug}`)}>
+    <Box pt={3} onClick={() => navigate(`/event/${event?.eventId}`)}>
       <Box boxShadow="lg" bgColor="white" borderRadius={10}>
         <HStack px={3}>
           <Box py={3} px={2}>
             <Image
-              src="/laptop.svg"
+              src={event?.posterLink}
               w={40}
               h={20}
               objectFit="cover"
@@ -52,10 +55,7 @@ export const EventOverviewBox: React.FC<EventBoxProps> = ({ event }) => {
           <Stack justifyContent="center" spacing={2}>
             <HStack justifyContent="center">
               <Icon as={MdDateRange} w={4} h={4} />
-              <Text fontSize={10}>
-                {startDate?.getDate()}{" "}
-                {startDate?.toLocaleString("default", { month: "short" })}
-              </Text>
+              <Text fontSize={10}>{startDate}</Text>
             </HStack>
             <Button
               fontSize={10}
@@ -65,9 +65,8 @@ export const EventOverviewBox: React.FC<EventBoxProps> = ({ event }) => {
               px={5}
               borderRadius="lg"
             >
-              <HStack>
-                <Icon as={CgScreen} w={4} h={4} />
-                <Text>Tech</Text>
+              <HStack maxW={8} isTruncated={true}>
+                <Text>{event?.tag}</Text>
               </HStack>
             </Button>
           </Stack>
