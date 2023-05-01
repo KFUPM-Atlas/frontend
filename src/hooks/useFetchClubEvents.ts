@@ -9,7 +9,11 @@ export const useFetchClubEvent = (clubId: string) => {
   const [error, setError] = useState<string>("");
 
   const fetchEvent = async () => {
-    const q = query(collection(db, "events"), where("clubId", "==", clubId));
+    const q = query(
+      collection(db, "events"),
+      where("clubId", "==", clubId),
+      where("isDeleted", "==", false)
+    );
     setLoading(true);
     const unsub = onSnapshot(q, (snapshot) => {
       let results = [];
