@@ -21,6 +21,7 @@ import { useFetchClubs } from "../hooks/useFetchClubs";
 import { ClubOverviewBox } from "../components/ClubOverviewBox";
 import { useCollection } from "../hooks/useCollection";
 import { getTagNames } from "../utils/tagToArray";
+import { useAuthContext } from "../hooks/useAuthContext";
 export const Explore: React.FC = () => {
   const { clubs } = useFetchClubs();
   const { documents: tags } = useCollection("tags", []);
