@@ -21,10 +21,9 @@ export const Overview: React.FC<OverviewProps> = ({ event }) => {
                 </Text>
                 <Text fontSize={14}>
                   {new Intl.DateTimeFormat("en-US", {
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                  }).format(new Date(event?.startDate))}
+                    month: "long",
+                    day: "numeric",
+                  }).format(new Date(event.startDate))}
                 </Text>
               </Stack>
             </HStack>
@@ -39,12 +38,13 @@ export const Overview: React.FC<OverviewProps> = ({ event }) => {
                     hour: "numeric",
                     minute: "numeric",
                     hour12: true,
-                  }).format(new Date(event?.endDate))}
+                  }).format(new Date(event?.startDate))}
                   -
                   {new Intl.DateTimeFormat("en-US", {
-                    month: "long",
-                    day: "numeric",
-                  }).format(new Date(event.startDate))}
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  }).format(new Date(event?.endDate))}
                 </Text>
               </Stack>
             </HStack>
